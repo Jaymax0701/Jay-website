@@ -186,7 +186,7 @@ export default function App() {
             <h2>Let's make<br /><em>something meaningful.</em></h2>
             <p>For professional conversations, project collaborations, speaking and emcee enquiries. I'd be glad to connect.</p>
             <div className="contact-actions">
-              <a className="button button-primary" href={profile.github} target="_blank" rel="noreferrer">Explore GitHub</a>
+              <a className="button button-primary" href="https://wa.me/60178095010" target="_blank" rel="noreferrer">Chat on WhatsApp</a>
               {profile.linkedin && <a className="button button-outline" href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>}
               {profile.email && <a className="button button-outline" href={`mailto:${profile.email}`}>Email me</a>}
             </div>
