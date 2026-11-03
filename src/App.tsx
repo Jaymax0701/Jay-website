@@ -1,8 +1,4 @@
-import { useState, type MouseEventHandler, type ReactNode } from "react";
-import { motion } from "framer-motion";
-import {
-  ArrowDown, ArrowUpRight, Menu, X
-} from "lucide-react";
+import { useEffect, useState, type MouseEventHandler, type ReactNode } from "react";
 import SectionHeading from "./components/SectionHeading";
 import ProjectCard from "./components/ProjectCard";
 import RepositoryGrid from "./components/RepositoryGrid";
@@ -17,21 +13,17 @@ interface NavLinkProps {
 }
 
 function NavLink({ href, children, onClick }: NavLinkProps) {
-  return (
-    <motion.a
-      href={href}
-      onClick={onClick}
-      initial={{ opacity: 0, y: -7 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
-    >
-      {children}
-    </motion.a>
-  );
+  return <a href={href} onClick={onClick}>{children}</a>;
 }
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const loadingTimer = window.setTimeout(() => setIsLoading(false), 650);
+    return () => window.clearTimeout(loadingTimer);
+  }, []);
   const closeMenu = () => setMenuOpen(false);
   const navItems = [
     ["About", "#about"], ["Technology", "#technology"], ["Leadership", "#leadership"],
@@ -39,48 +31,47 @@ export default function App() {
   ];
 
   return (
+    <>
+    {isLoading && (
+      <div className="site-loader" role="status" aria-label="Loading portfolio">
+        <div className="loader-mark">J<span>.</span></div>
+        <p className="loader-name">JAYMAXCKLIEN</p>
+        <p className="loader-caption">TECHNOLOGY · LEADERSHIP · COMMUNICATION</p>
+        <div className="loader-track"><span /></div>
+      </div>
+    )}
     <div className="site-shell">
-      <motion.header
-        className="site-header"
-        initial={{ opacity: 0, y: -18 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-      >
+      <header className="site-header">
         <a className="wordmark" href="#top" aria-label="Jaymaxcklien home">
           <span className="wordmark-mark">J.</span><span>JAYMAXCKLIEN</span>
         </a>
-        <motion.nav
-          className={menuOpen ? "main-nav is-open" : "main-nav"}
-          aria-label="Main navigation"
-          initial={false}
-          animate={menuOpen ? { y: 0 } : { y: 0 }}
-        >
+        <nav className={menuOpen ? "main-nav is-open" : "main-nav"} aria-label="Main navigation">
           {navItems.map(([label, href]) => <NavLink href={href} key={href} onClick={closeMenu}>{label}</NavLink>)}
-          <a className="nav-cta" href={profile.github} target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={14} /></a>
-        </motion.nav>
+          <a className="nav-cta" href={profile.github} target="_blank" rel="noreferrer">GitHub</a>
+        </nav>
         <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? "Close menu" : "Open menu"}>
-          {menuOpen ? <X /> : <Menu />}
+          {menuOpen ? "Close" : "Menu"}
         </button>
-      </motion.header>
+      </header>
 
       <main id="top">
         <section className="hero section-wrap">
           <div className="hero-copy">
-            <motion.p className="eyebrow" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+            <p className="eyebrow">
               <span className="status-dot" /> {profile.location} · PERSONAL PORTFOLIO
-            </motion.p>
-            <motion.h1 initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65, delay: 0.08 }}>
+            </p>
+            <h1>
               Technology.<br /><em>Leadership.</em><br />Communication.
-            </motion.h1>
-            <motion.p className="hero-description" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.18 }}>
+            </h1>
+            <p className="hero-description">
               {profile.intro}
-            </motion.p>
-            <motion.div className="hero-actions" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}>
-              <a className="button button-primary" href="#technology">Explore my work <ArrowUpRight size={16} /></a>
-              <a className="button button-quiet" href="#about">A little about me <ArrowDown size={15} /></a>
-            </motion.div>
+            </p>
+            <div className="hero-actions">
+              <a className="button button-primary" href="#technology">Explore my work</a>
+              <a className="button button-quiet" href="#about">A little about me</a>
+            </div>
           </div>
-          <motion.aside className="hero-aside" initial={{ opacity: 0, x: 18 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7, delay: 0.18 }}>
+          <aside className="hero-aside">
             <div className="hero-aside-top"><span>THREE DIMENSIONS</span><span>EST. 2026</span></div>
             <div className="orbit-art" aria-hidden="true">
               <div className="orbit orbit-one" /><div className="orbit orbit-two" />
@@ -88,7 +79,7 @@ export default function App() {
               <span className="orbit-label label-one">SYSTEMS</span><span className="orbit-label label-two">PEOPLE</span><span className="orbit-label label-three">IDEAS</span>
             </div>
             <div className="hero-aside-bottom"><span>CURIOUS BY NATURE</span><span>IMPACT BY DESIGN</span></div>
-          </motion.aside>
+          </aside>
           <div className="hero-bottomline"><span>SCROLL TO EXPLORE</span><span>01 / 03</span></div>
         </section>
 
@@ -129,7 +120,7 @@ export default function App() {
             </div>
             <div className="repo-heading">
               <div><p className="eyebrow">FROM THE WORKBENCH</p><h3>Public GitHub repositories</h3></div>
-              <a className="text-link" href={profile.github} target="_blank" rel="noreferrer">All repositories <ArrowUpRight size={15} /></a>
+              <a className="text-link" href={profile.github} target="_blank" rel="noreferrer">All repositories</a>
             </div>
             <RepositoryGrid />
           </div>
@@ -195,7 +186,7 @@ export default function App() {
             <h2>Let's make<br /><em>something meaningful.</em></h2>
             <p>For professional conversations, project collaborations, speaking and emcee enquiries. I'd be glad to connect.</p>
             <div className="contact-actions">
-              <a className="button button-primary" href={profile.github} target="_blank" rel="noreferrer">Explore GitHub <ArrowUpRight size={15} /></a>
+              <a className="button button-primary" href={profile.github} target="_blank" rel="noreferrer">Explore GitHub</a>
               {profile.linkedin && <a className="button button-outline" href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>}
               {profile.email && <a className="button button-outline" href={`mailto:${profile.email}`}>Email me</a>}
             </div>
@@ -209,5 +200,6 @@ export default function App() {
         <span>© {new Date().getFullYear()} · Built with intention.</span>
       </footer>
     </div>
+    </>
   );
 }
