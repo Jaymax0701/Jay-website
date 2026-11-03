@@ -173,7 +173,7 @@ export default function App() {
           <div className="section-wrap contact-inner">
             <p className="eyebrow">HAVE SOMETHING IN MIND?</p>
             <h2>Let's make<br /><em>something meaningful.</em></h2>
-            <p>For professional conversations, project collaborations, speaking and emcee enquiries — I'd be glad to connect.</p>
+            <p>For professional conversations, project collaborations, speaking and emcee enquiries. I'd be glad to connect.</p>
             <div className="contact-actions">
               <a className="button button-primary" href={profile.github} target="_blank" rel="noreferrer">Explore GitHub <ArrowUpRight size={15} /></a>
               {profile.linkedin && <a className="button button-outline" href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>}
