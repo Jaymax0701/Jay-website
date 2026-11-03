@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type MouseEventHandler, type ReactNode } from "react";
+import { useEffect, useRef, useState } from "react";
 import SectionHeading from "./components/SectionHeading";
 import ProjectCard from "./components/ProjectCard";
 import RepositoryGrid from "./components/RepositoryGrid";
@@ -6,15 +6,6 @@ import {
   profile, pillars, featuredProjects, experience, speakingCategories, skills
 } from "./data/profile";
 
-interface NavLinkProps {
-  href: string;
-  children: ReactNode;
-  onClick?: MouseEventHandler<HTMLAnchorElement>;
-}
-
-function NavLink({ href, children, onClick }: NavLinkProps) {
-  return <a href={href} onClick={onClick}>{children}</a>;
-}
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
