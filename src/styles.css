@@ -630,17 +630,8 @@ h1 em, h2 em, .tech-note h3 em, .skills-copy h2 em, .contact-inner h2 em,
   animation: star-pulse 4.5s ease-in-out infinite;
 }
 .orbit-core::before {
-  content: "✦";
-  position: absolute;
-  z-index: -1;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-53%);
-  color: rgba(255,231,177,.55);
-  font-size: 132px;
-  line-height: 1;
-  text-shadow: 0 0 18px rgba(255,224,155,.7), 0 0 42px rgba(227,189,131,.5);
-  pointer-events: none;
+  content: none;
+  display: none;
 }
 .orbit-core::after {
   content: "";
