@@ -38,7 +38,7 @@ export default function App() {
       return;
     }
 
-    const observer = new IntersectionObserver((entries, currentObserver) => {
+    const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         entry.target.classList.toggle("is-revealed", entry.isIntersecting);
       });
