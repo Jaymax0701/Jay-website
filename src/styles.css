@@ -37,7 +37,7 @@ button { font: inherit; }
 .text-link:hover { color: #B7793E; }
 .nav-cta { display: inline-flex; align-items: center; gap: 8px; padding: 10px 15px; margin-left: 3px; border: 1px solid #C9CED8; border-radius: 999px; color: var(--ink); background: rgba(245,243,238,.8); transition: color .22s ease, background .22s ease, border-color .22s ease, transform .22s ease; }
 .nav-cta:hover { color: #fff; background: var(--ink); border-color: var(--ink); transform: translateY(-1px); }
-.menu-toggle { display: none; border: 0; background: transparent; color: var(--ink); }
+.menu-toggle { display: none; border: 0; background: transparent; color: var(--ink); font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
 .hero { min-height: 690px; padding-block: 112px 50px; display: grid; grid-template-columns: 1.2fr .8fr; align-items: center; gap: 55px; position: relative; }
 .eyebrow, .hero-aside-top, .hero-aside-bottom, .hero-bottomline, .project-index, .note-index, .experience-period, .journey-period, .speaking-status { font-family: var(--mono); font-size: 10px; letter-spacing: .11em; text-transform: uppercase; color: #7B8495; }
 .hero .eyebrow { display: flex; align-items: center; gap: 10px; }
@@ -101,7 +101,7 @@ h1 em, h2 em, .tech-note h3 em, .skills-copy h2 em, .contact-inner h2 em { font-
 @media (max-width: 850px) {
   .section-wrap { width: min(100% - 40px, 680px); }
   .site-header { padding-inline: 20px; height: 72px; }
-  .menu-toggle { display: block; cursor: pointer; }
+  .menu-toggle { display: block; cursor: pointer; padding: 10px 0 10px 12px; }
   .main-nav { display: flex; position: absolute; top: 71px; left: 0; right: 0; padding: 22px 24px 27px; background: rgba(245,243,238,.98); border: 0; border-bottom: 1px solid var(--line); border-radius: 0; box-shadow: 0 18px 28px rgba(23,36,58,.08); flex-direction: column; align-items: stretch; gap: 10px; opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-10px); transition: opacity .24s ease, transform .3s cubic-bezier(.22,1,.36,1), visibility .24s ease; }
   .main-nav.is-open { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); }
   .main-nav a:not(.nav-cta) { padding: 9px 0; }
@@ -143,3 +143,16 @@ h1 em, h2 em, .tech-note h3 em, .skills-copy h2 em, .contact-inner h2 em { font-
   .project-live-preview iframe { height: 360px; }
   .project-card-actions { gap: 14px; }
 }
+
+
+/* A quiet, branded page-entry screen */
+.site-loader { position: fixed; inset: 0; z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--paper); color: var(--ink); }
+.loader-mark { width: 64px; height: 64px; display: grid; place-items: center; border-radius: 50%; background: var(--ink); color: var(--paper); font-family: var(--display); font-size: 43px; letter-spacing: -.1em; padding-right: 5px; }
+.loader-mark span { color: #D6A45D; }
+.loader-name { margin: 22px 0 7px; font-size: 10px; font-weight: 800; letter-spacing: .2em; }
+.loader-caption { margin: 0; color: #8790A0; font-family: var(--mono); font-size: 8px; letter-spacing: .12em; text-align: center; }
+.loader-track { width: 112px; height: 2px; margin-top: 28px; overflow: hidden; background: #DFE2E8; }
+.loader-track span { display: block; width: 100%; height: 100%; background: #C08A4D; transform: scaleX(0); transform-origin: left; animation: loader-progress .65s linear forwards; }
+.repo-open-label { color: #C08A4D; font-family: var(--mono); font-size: 8px; letter-spacing: .12em; }
+@keyframes loader-progress { to { transform: scaleX(1); } }
+@media (prefers-reduced-motion: reduce) { .loader-track span { animation: none; transform: scaleX(1); } }
