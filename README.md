@@ -8,15 +8,17 @@ A responsive personal portfolio presenting three connected dimensions:
 
 ## Stack
 
-- React 19 + Vite
+- React 19 + TypeScript 5 + TSX + Vite
 - Framer Motion
 - Lucide React
 - Plain CSS with responsive design tokens
+- Strict TypeScript checking (`npm run typecheck`)
 - GitHub REST API for public repository discovery
 
 ## Local development
 
 ```bash
+npm install
 npm install
 npm run dev
 ```
@@ -45,7 +47,7 @@ Cloudflare setup guide: https://developers.cloudflare.com/pages/framework-guides
 
 ## Content and privacy
 
-The site intentionally avoids publishing internal employer information, confidential business processes, private repositories or unapproved event media. Update the content in `src/data/profile.js` and add approved media under `public/media/`.
+The site intentionally avoids publishing internal employer information, confidential business processes, private repositories or unapproved event media. Update the content in `src/data/profile.ts` and add approved media under `public/media/`.
 
 ## Before launch
 
