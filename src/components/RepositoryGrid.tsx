@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowUpRight, GitFork, Star } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 interface GitHubRepository {
   id: number; name: string; html_url: string; language: string | null;
@@ -52,8 +52,6 @@ export default function RepositoryGrid() {
           <h3>{repo.name.replaceAll("-", " ")}</h3>
           <p>{repo.description || "A public project from GitHub."}</p>
           <div className="repo-meta">
-            <span><Star size={14} /> {repo.stargazers_count}</span>
-            <span><GitFork size={14} /> {repo.forks_count}</span>
             <span>Updated {new Date(repo.pushed_at).toLocaleDateString("en-MY", { month: "short", year: "numeric" })}</span>
           </div>
         </a>
