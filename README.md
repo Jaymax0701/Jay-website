@@ -9,16 +9,16 @@ A responsive personal portfolio presenting three connected dimensions:
 ## Stack
 
 - React 19 + TypeScript 5 + TSX + Vite
-- Framer Motion
-- Lucide React
+- Framer Motion and Lucide React
 - Plain CSS with responsive design tokens
 - Strict TypeScript checking (`npm run typecheck`)
 - GitHub REST API for public repository discovery
 
 ## Local development
 
+Requires Node.js 22 or later.
+
 ```bash
-npm install
 npm install
 npm run dev
 ```
@@ -26,13 +26,14 @@ npm run dev
 Build and preview:
 
 ```bash
+npm run typecheck
 npm run build
 npm run preview
 ```
 
 ## Deployment: Cloudflare Pages
 
-Connect this repository to Cloudflare Pages using Git integration.
+This repository is configured for Cloudflare Pages Git integration.
 
 | Setting | Value |
 | --- | --- |
@@ -41,19 +42,19 @@ Connect this repository to Cloudflare Pages using Git integration.
 | Build output directory | `dist` |
 | Node.js | 22 |
 
-Every push to `main` can trigger a production deployment. Pull requests and other branches can use preview deployments.
+Pushes to `main` trigger the production build/deployment when the Cloudflare Pages Git integration is active. Pull requests and other branches can use preview deployments.
 
 Cloudflare setup guide: https://developers.cloudflare.com/pages/framework-guides/deploy-a-react-site/
 
 ## Content and privacy
 
-The site intentionally avoids publishing internal employer information, confidential business processes, private repositories or unapproved event media. Update the content in `src/data/profile.ts` and add approved media under `public/media/`.
+The site is designed to avoid publishing internal employer information, confidential business processes, private repositories or unapproved event media. Review all public-facing employment and leadership descriptions before sharing the site widely.
 
-## Before launch
+Update profile content in `src/data/profile.ts` and add approved media under `public/media/`.
 
-- [ ] Add an approved professional portrait.
-- [ ] Add approved emcee and leadership event photographs/videos.
+## Remaining content tasks
+
+- [ ] Add an approved professional portrait and approved event photographs/videos.
 - [ ] Confirm public contact details and social profile URLs.
 - [ ] Review all employment and leadership descriptions for publication approval.
-- [ ] Connect Cloudflare Pages and configure a custom domain if desired.
-- [ ] Add a site preview image and final SEO metadata.
+- [ ] Add a social preview image and final canonical URL metadata after confirming the production domain.
