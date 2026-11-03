@@ -265,3 +265,30 @@ a.button-primary:hover,
   color: #FFFFFF !important;
   border-color: #E3BD83;
 }
+
+
+/* Unified technical typography: geometric sans + restrained monospace */
+:root {
+  font-family: "Space Grotesk", sans-serif;
+  --display: "Space Grotesk", sans-serif;
+  --mono: "IBM Plex Mono", monospace;
+}
+body, button, input, textarea, select { font-family: "Space Grotesk", sans-serif; }
+h1, h2, h3, blockquote, .wordmark, .wordmark-mark, .loader-mark { font-family: "Space Grotesk", sans-serif; }
+h1 em, h2 em, .tech-note h3 em, .skills-copy h2 em, .contact-inner h2 em,
+.intro-grid h2 span, .leadership-statement blockquote, .quote-mark, .orbit-core {
+  font-family: "Space Grotesk", sans-serif;
+  font-style: normal;
+}
+.hero h1 {
+  width: fit-content;
+  max-width: 100%;
+  clip-path: inset(0 100% 0 0);
+  animation: hero-type-reveal 2.2s steps(34, end) .25s forwards;
+}
+@keyframes hero-type-reveal {
+  to { clip-path: inset(0 0 0 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero h1 { clip-path: none; animation: none; }
+}
