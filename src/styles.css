@@ -673,3 +673,46 @@ h1 em, h2 em, .tech-note h3 em, .skills-copy h2 em, .contact-inner h2 em,
 @media (prefers-reduced-motion: reduce) {
   .orbit-one, .orbit-two, .orbit-core { animation: none !important; }
 }
+
+
+/* Orbiting words and a precisely centred J at the heart of the star */
+.orbit-core {
+  display: grid;
+  place-items: center;
+  padding: 0 !important;
+  line-height: 1;
+  text-align: center;
+}
+.orbit-core > span {
+  position: absolute;
+  top: 24%;
+  right: 28%;
+  margin: 0;
+  font-size: 30px;
+  line-height: 1;
+}
+.orbit-label {
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  offset-path: circle(42% at 50% 50%);
+  offset-anchor: center;
+  offset-rotate: 0deg;
+  animation: wording-orbit 26s linear infinite;
+  white-space: nowrap;
+  z-index: 3;
+  box-shadow: 0 4px 14px rgba(5,13,27,.18);
+}
+.label-two { animation-duration: 32s; animation-direction: reverse; }
+.label-three { animation-duration: 38s; animation-delay: -13s; }
+@keyframes wording-orbit {
+  from { offset-distance: 0%; }
+  to { offset-distance: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .orbit-label { animation: none !important; offset-path: none; }
+  .label-one { top: 13%; left: 5%; }
+  .label-two { top: 48%; left: auto; right: 0; }
+  .label-three { top: auto; left: 19%; bottom: 12%; }
+}
