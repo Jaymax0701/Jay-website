@@ -18,11 +18,41 @@ function NavLink({ href, children, onClick }: NavLinkProps) {
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const loadingTimer = window.setTimeout(() => setIsLoading(false), 650);
-    return () => window.clearTimeout(loadingTimer);
+    const updateScrollState = () => setIsScrolled(window.scrollY > 80);
+    updateScrollState();
+    window.addEventListener("scroll", updateScrollState, { passive: true });
+    return () => window.removeEventListener("scroll", updateScrollState);
+  }, []);
+
+  useEffect(() => {
+    const revealTargets = document.querySelectorAll(
+      ".hero .eyebrow, .hero h1, .hero-description, .hero-actions, .hero-aside, .section-heading, .intro-grid > div, .pillar-card, .project-card, .tech-note, .repo-card, .leadership-statement, .experience-item, .speaking-card, .journey-item, .skills-copy, .skills-list, .contact-inner > *"
+    );
+
+    if (!("IntersectionObserver" in window)) {
+      revealTargets.forEach((element) => element.classList.add("is-revealed"));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries, currentObserver) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-revealed");
+          currentObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -35px 0px" });
+
+    revealTargets.forEach((element) => {
+      element.classList.add("scroll-reveal");
+      observer.observe(element);
+    });
+
+    return () => observer.disconnect();
   }, []);
   const closeMenu = () => setMenuOpen(false);
   const navItems = [
@@ -41,7 +71,7 @@ export default function App() {
       </div>
     )}
     <div className="site-shell">
-      <header className="site-header">
+      <header className={`site-header${isScrolled || menuOpen ? " is-visible" : ""}`}>
         <a className="wordmark" href="#top" aria-label="Jaymaxcklien home">
           <span className="wordmark-mark">J.</span><span>JAYMAXCKLIEN</span>
         </a>
