@@ -1,4 +1,4 @@
-import { useEffect, useState, type MouseEventHandler, type ReactNode } from "react";
+import { useEffect, useRef, useState, type MouseEventHandler, type ReactNode } from "react";
 import SectionHeading from "./components/SectionHeading";
 import ProjectCard from "./components/ProjectCard";
 import RepositoryGrid from "./components/RepositoryGrid";
@@ -19,6 +19,9 @@ function NavLink({ href, children, onClick }: NavLinkProps) {
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("about");
+  const [glider, setGlider] = useState({ left: 0, width: 0, visible: false });
+  const navRef = useRef<HTMLElement>(null);
   const [flippedPillars, setFlippedPillars] = useState<string[]>([]);
 
   useEffect(() => {
@@ -27,6 +30,30 @@ export default function App() {
     window.addEventListener("scroll", updateScrollState, { passive: true });
     return () => window.removeEventListener("scroll", updateScrollState);
   }, []);
+
+  useEffect(() => {
+    const sectionIds = ["about", "technology", "leadership", "speaking", "contact"];
+    const sections = sectionIds.map((id) => document.getElementById(id)).filter((section): section is HTMLElement => section !== null);
+    if (!("IntersectionObserver" in window)) return;
+    const observer = new IntersectionObserver((entries) => {
+      const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (visible) setActiveSection(visible.target.id);
+    }, { rootMargin: "-32% 0px -52% 0px", threshold: [0, 0.15, 0.35, 0.6] });
+    sections.forEach((section) => observer.observe(section));
+    const handleTop = () => { if (window.scrollY < 120) setActiveSection("about"); };
+    window.addEventListener("scroll", handleTop, { passive: true });
+    return () => { observer.disconnect(); window.removeEventListener("scroll", handleTop); };
+  }, []);
+
+  useEffect(() => {
+    const nav = navRef.current;
+    const activeLink = nav?.querySelector<HTMLAnchorElement>(`a[data-section="${activeSection}"]`);
+    if (!nav || !activeLink || window.matchMedia("(max-width: 850px)").matches) {
+      setGlider((current) => ({ ...current, visible: false }));
+      return;
+    }
+    setGlider({ left: activeLink.offsetLeft, width: activeLink.offsetWidth, visible: true });
+  }, [activeSection]);
 
   useEffect(() => {
     const revealTargets = document.querySelectorAll(
