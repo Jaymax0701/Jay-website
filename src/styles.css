@@ -521,3 +521,57 @@ h1 em, h2 em, .tech-note h3 em, .skills-copy h2 em, .contact-inner h2 em,
 @media (prefers-reduced-motion: reduce) {
   .pillar-card-inner { transition: none; }
 }
+
+
+/* Floating glass navigation: remove the full-width blue header slab */
+.site-header,
+.site-header:hover,
+.site-header.is-visible {
+  height: auto;
+  min-height: 0;
+  padding: 16px max(32px, calc((100vw - 1160px)/2));
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.site-header::after { display: none; }
+
+/* Keep the navigation links in one compact, translucent glass capsule */
+.main-nav {
+  padding: 7px;
+  gap: 4px;
+  border: 1px solid rgba(226,233,244,.28);
+  border-radius: 999px;
+  background: rgba(20,36,61,.48);
+  box-shadow: 0 8px 28px rgba(4,12,26,.16), inset 0 1px 0 rgba(255,255,255,.16);
+  backdrop-filter: blur(18px) saturate(155%);
+  -webkit-backdrop-filter: blur(18px) saturate(155%);
+}
+.wordmark {
+  padding: 8px 13px 8px 8px;
+  border: 1px solid rgba(226,233,244,.2);
+  border-radius: 999px;
+  background: rgba(20,36,61,.42);
+  box-shadow: 0 8px 24px rgba(4,12,26,.12), inset 0 1px 0 rgba(255,255,255,.12);
+  backdrop-filter: blur(16px) saturate(145%);
+  -webkit-backdrop-filter: blur(16px) saturate(145%);
+}
+@media (max-width: 850px) {
+  .site-header,
+  .site-header:hover,
+  .site-header.is-visible {
+    min-height: 72px;
+    padding: 12px 20px;
+  }
+  .main-nav {
+    top: 68px;
+    border: 1px solid rgba(226,233,244,.2);
+    border-radius: 0 0 16px 16px;
+    background: rgba(20,36,61,.86);
+    backdrop-filter: blur(20px) saturate(155%);
+    -webkit-backdrop-filter: blur(20px) saturate(155%);
+  }
+  .wordmark { padding: 6px 10px 6px 6px; }
+}
