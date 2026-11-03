@@ -1,18 +1,14 @@
 import { useState, type MouseEventHandler, type ReactNode } from "react";
 import { motion } from "framer-motion";
-import type { LucideIcon } from "lucide-react";
 import {
-  ArrowDown, ArrowUpRight, Code2, Github, Linkedin, Mail,
-  Menu, Mic2, Radio, Users, X
+  ArrowDown, ArrowUpRight, Menu, X
 } from "lucide-react";
 import SectionHeading from "./components/SectionHeading";
 import ProjectCard from "./components/ProjectCard";
 import RepositoryGrid from "./components/RepositoryGrid";
 import {
-  profile, pillars, featuredProjects, experience, speakingCategories, skills, type PillarIcon
+  profile, pillars, featuredProjects, experience, speakingCategories, skills
 } from "./data/profile";
-
-const iconMap: Record<PillarIcon, LucideIcon> = { code: Code2, users: Users, mic: Mic2 };
 
 interface NavLinkProps {
   href: string;
@@ -73,7 +69,7 @@ export default function App() {
             </div>
             <div className="hero-aside-bottom"><span>CURIOUS BY NATURE</span><span>IMPACT BY DESIGN</span></div>
           </motion.aside>
-          <div className="hero-bottomline"><span>SCROLL TO EXPLORE</span><span>01 — 03</span></div>
+          <div className="hero-bottomline"><span>SCROLL TO EXPLORE</span><span>01 / 03</span></div>
         </section>
 
         <section className="intro-strip" id="about">
@@ -82,7 +78,7 @@ export default function App() {
             <div>
               <h2>Different disciplines.<br /><span>One shared purpose.</span></h2>
               <p className="body-large">I enjoy understanding how things work, helping people move in the same direction and communicating ideas with clarity. This portfolio brings those parts of my journey together.</p>
-              <p className="intro-signature">{profile.fullName} <span>— {profile.role}</span></p>
+              <p className="intro-signature">{profile.fullName} <span>· {profile.role}</span></p>
             </div>
           </div>
         </section>
@@ -90,13 +86,12 @@ export default function App() {
         <section className="section-wrap pillar-section">
           <SectionHeading number="01" eyebrow="THE THREE PILLARS" title="What I bring to the table." description="A combination of analytical thinking, people leadership and confident communication." />
           <div className="pillar-grid">
-            {pillars.map((pillar) => {
-              const Icon = iconMap[pillar.icon];
-              return <article className="pillar-card" key={pillar.number}>
-                <div className="pillar-top"><span>{pillar.number}</span><Icon size={22} strokeWidth={1.5} /></div>
+            {pillars.map((pillar) => (
+              <article className="pillar-card" key={pillar.number}>
+                <div className="pillar-top"><span>{pillar.number}</span></div>
                 <h3>{pillar.title}</h3><p className="pillar-subtitle">{pillar.subtitle}</p><p>{pillar.description}</p>
-              </article>;
-            })}
+              </article>
+            ))}
           </div>
         </section>
 
@@ -137,7 +132,7 @@ export default function App() {
               ))}
             </div>
           </div>
-          <div className="leadership-footnote"><Users size={17} /><span>People · Purpose · Participation · Progress</span></div>
+          <div className="leadership-footnote"><span>People · Purpose · Participation · Progress</span></div>
         </section>
 
         <section className="speaking-section" id="speaking">
@@ -146,14 +141,14 @@ export default function App() {
             <div className="speaking-grid">
               {speakingCategories.map((item, index) => (
                 <article className="speaking-card" key={item.title}>
-                  <div className="speaking-card-top"><span>0{index + 1}</span><Radio size={19} /></div>
+                  <div className="speaking-card-top"><span>0{index + 1}</span></div>
                   <span className="eyebrow">{item.tag}</span>
                   <h3>{item.title}</h3><p>{item.description}</p>
                   <span className="speaking-status">SELECTED HIGHLIGHTS TO BE ADDED</span>
                 </article>
               ))}
             </div>
-            <div className="media-note"><Mic2 size={18} /><p>Event photographs and video highlights will be added here after selecting media that is approved for public sharing.</p></div>
+            <div className="media-note"><p>Event photographs and video highlights will be added here after selecting media that is approved for public sharing.</p></div>
           </div>
         </section>
 
@@ -180,9 +175,9 @@ export default function App() {
             <h2>Let's make<br /><em>something meaningful.</em></h2>
             <p>For professional conversations, project collaborations, speaking and emcee enquiries — I'd be glad to connect.</p>
             <div className="contact-actions">
-              <a className="button button-primary" href={profile.github} target="_blank" rel="noreferrer"><Github size={16} /> Explore GitHub <ArrowUpRight size={15} /></a>
-              {profile.linkedin && <a className="button button-outline" href={profile.linkedin} target="_blank" rel="noreferrer"><Linkedin size={16} /> LinkedIn</a>}
-              {profile.email && <a className="button button-outline" href={`mailto:${profile.email}`}><Mail size={16} /> Email me</a>}
+              <a className="button button-primary" href={profile.github} target="_blank" rel="noreferrer">Explore GitHub <ArrowUpRight size={15} /></a>
+              {profile.linkedin && <a className="button button-outline" href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>}
+              {profile.email && <a className="button button-outline" href={`mailto:${profile.email}`}>Email me</a>}
             </div>
           </div>
         </section>
