@@ -1,4 +1,4 @@
-import { ArrowUpRight, Github } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import type { FeaturedProject } from "../data/profile";
 
 interface ProjectCardProps { project: FeaturedProject; }
@@ -12,7 +12,6 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           <ArrowUpRight size={19} />
         </a>
       </div>
-      <div className="project-symbol"><Github size={25} /></div>
       <div className="project-live-preview">
         <div className="project-preview-label"><span className="preview-status-dot" /> LIVE APPLICATION PREVIEW</div>
         <iframe
