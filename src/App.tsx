@@ -29,6 +29,11 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    const loadingTimer = window.setTimeout(() => setIsLoading(false), 700);
+    return () => window.clearTimeout(loadingTimer);
+  }, []);
+
+  useEffect(() => {
     const revealTargets = document.querySelectorAll(
       ".hero .eyebrow, .hero h1, .hero-description, .hero-actions, .hero-aside, .section-heading, .intro-grid > div, .pillar-card, .project-card, .tech-note, .repo-card, .leadership-statement, .experience-item, .speaking-card, .journey-item, .skills-copy, .skills-list, .contact-inner > *"
     );
@@ -64,9 +69,11 @@ export default function App() {
     <>
     {isLoading && (
       <div className="site-loader" role="status" aria-label="Loading portfolio">
-        <div className="loader-mark">J<span>.</span></div>
-        <p className="loader-name">JAYMAXCKLIEN</p>
-        <p className="loader-caption">TECHNOLOGY · LEADERSHIP · COMMUNICATION</p>
+        <div className="loader-brand">
+          <span className="loader-mark">J<span>.</span></span>
+          <span className="loader-name">JAYMAXCKLIEN</span>
+        </div>
+        <span className="loader-caption">PERSONAL PORTFOLIO</span>
         <div className="loader-track"><span /></div>
       </div>
     )}
