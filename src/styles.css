@@ -292,3 +292,46 @@ h1 em, h2 em, .tech-note h3 em, .skills-copy h2 em, .contact-inner h2 em,
 @media (prefers-reduced-motion: reduce) {
   .hero h1 { clip-path: none; animation: none; }
 }
+
+
+/* Navigation stays tucked away until the visitor starts scrolling */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  transform: translateY(-110%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform .38s cubic-bezier(.22,1,.36,1), opacity .28s ease, box-shadow .3s ease, border-color .3s ease;
+}
+.site-header.is-visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Typography and content gently emerge as each section enters view */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  filter: blur(5px);
+  transition: opacity .75s ease, transform .75s cubic-bezier(.22,1,.36,1), filter .75s ease;
+}
+.scroll-reveal.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+.hero .scroll-reveal {
+  transition-duration: .9s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-header { transform: none; opacity: 1; pointer-events: auto; }
+  .scroll-reveal, .scroll-reveal.is-revealed {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+}
