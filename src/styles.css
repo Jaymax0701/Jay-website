@@ -412,3 +412,112 @@ h1 em, h2 em, .tech-note h3 em, .skills-copy h2 em, .contact-inner h2 em,
 @media (prefers-reduced-motion: reduce) {
   .loader-track span { animation: none; transform: scaleX(1); }
 }
+
+
+/* Replay reveal animations whenever elements leave and re-enter the viewport */
+.scroll-reveal {
+  will-change: opacity, transform, filter;
+}
+
+/* Interactive three-pillar 3D flip cards */
+.pillar-grid {
+  gap: 14px;
+  border: 0;
+}
+.pillar-card {
+  min-height: 310px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  perspective: 1100px;
+  background: transparent;
+  overflow: visible;
+}
+.pillar-card-inner {
+  position: relative;
+  width: 100%;
+  min-height: 310px;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform .75s cubic-bezier(.2,.75,.25,1);
+}
+.pillar-card-inner.is-flipped {
+  transform: rotateY(180deg);
+}
+.pillar-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 310px;
+  padding: 27px;
+  border: 1px solid rgba(226,233,244,.18);
+  border-radius: 8px;
+  background: linear-gradient(145deg, #223653, #1D304D);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  box-shadow: 0 12px 28px rgba(5,13,27,.12);
+}
+.pillar-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(145deg, #263D5D, #1B2D49);
+  border-color: rgba(227,189,131,.38);
+}
+.pillar-face .pillar-top {
+  display: flex;
+  justify-content: space-between;
+  color: #E3BD83;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: .12em;
+}
+.pillar-face .pillar-top span { color: #B9C3D2; }
+.pillar-face-content h3 {
+  margin: 0 0 8px;
+  color: #F3F1EC;
+  font-size: 27px;
+  letter-spacing: -.04em;
+}
+.pillar-face-content .pillar-subtitle {
+  margin: 0 0 16px;
+  color: #E3BD83 !important;
+}
+.pillar-face-content .pillar-summary,
+.pillar-face-content .pillar-detail {
+  margin: 0;
+  max-width: 300px;
+  color: #C6D0DE !important;
+  font-size: 12px;
+  line-height: 1.85;
+}
+.pillar-flip-button {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 13px;
+  padding: 9px 0 4px;
+  border: 0;
+  border-bottom: 1px solid rgba(227,189,131,.65);
+  background: transparent;
+  color: #E3BD83;
+  font: 600 11px "Space Grotesk", sans-serif;
+  cursor: pointer;
+  transition: gap .2s ease, color .2s ease;
+}
+.pillar-flip-button:hover {
+  gap: 19px;
+  color: #F6DFBA;
+}
+.pillar-flip-button:focus-visible {
+  outline: 2px solid #E3BD83;
+  outline-offset: 5px;
+  border-radius: 2px;
+}
+@media (max-width: 850px) {
+  .pillar-grid { grid-template-columns: 1fr; gap: 14px; }
+  .pillar-card, .pillar-card-inner, .pillar-face { min-height: 275px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pillar-card-inner { transition: none; }
+}
