@@ -185,3 +185,48 @@ h1 em, h2 em, .tech-note h3 em, .skills-copy h2 em, .contact-inner h2 em { font-
 .repo-open-label { color: #C08A4D; font-family: var(--mono); font-size: 8px; letter-spacing: .12em; }
 @keyframes loader-progress { to { transform: scaleX(1); } }
 @media (prefers-reduced-motion: reduce) { .loader-track span { animation: none; transform: scaleX(1); } }
+
+
+/* Unified navy page background */
+:root {
+  color: #F3F1EC;
+  background: #192B48;
+  --ink: #F3F1EC;
+  --muted: #B9C3D2;
+  --paper: #192B48;
+  --line: rgba(226,233,244,.16);
+  --deep: #192B48;
+  --deep-soft: #223653;
+}
+html, body, #root, .site-shell { background: #192B48; color: #F3F1EC; }
+.hero, .intro-strip, .pillar-section, .leadership-section, .speaking-section,
+.journey-section, .skills-section, .dark-section, .contact-section {
+  background: #192B48;
+  color: #F3F1EC;
+}
+.hero-aside, .intro-strip, .leadership-statement, .speaking-section,
+.speaking-card, .tech-note, .project-card, .repo-card {
+  background: #223653;
+  border-color: rgba(226,233,244,.17);
+}
+.hero-description, .body-large, .section-description, .pillar-card p:last-child,
+.experience-item p:last-child, .journey-item p:last-child, .speaking-card p,
+.skills-copy p:last-child, .media-note, .hero-aside-top, .hero-aside-bottom,
+.eyebrow, .hero-bottomline, .experience-period, .journey-period,
+.speaking-status, .pillar-top span { color: #B9C3D2; }
+.pillar-grid, .pillar-card, .experience-item, .journey-list, .journey-item,
+.hero-bottomline { border-color: rgba(226,233,244,.17); }
+.pillar-card h3, .experience-item h3, .journey-item h3,
+.speaking-card h3, .repo-card h3 { color: #F3F1EC; }
+.orbit { border-color: rgba(226,233,244,.24); }
+.orbit-label { background: #223653; color: #F3F1EC; border-color: rgba(226,233,244,.2); }
+.orbit-core { background: #0F1D33; }
+.project-live-preview { background: #0F1D33; }
+.project-live-preview iframe { background: #192B48; }
+.tag { color: #D9E1EC; border-color: rgba(226,233,244,.22); }
+.skill-chip { color: #D9E1EC; border-color: rgba(226,233,244,.22); }
+.leadership-statement blockquote { color: #F3F1EC; }
+.site-footer { background: #14243D; }
+.site-loader { background: #192B48; color: #F3F1EC; }
+.loader-mark { background: #0F1D33; color: #F3F1EC; }
+.loader-track { background: rgba(226,233,244,.2); }
