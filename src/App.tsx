@@ -19,18 +19,12 @@ function NavLink({ href, children, onClick }: NavLinkProps) {
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const updateScrollState = () => setIsScrolled(window.scrollY > 80);
     updateScrollState();
     window.addEventListener("scroll", updateScrollState, { passive: true });
     return () => window.removeEventListener("scroll", updateScrollState);
-  }, []);
-
-  useEffect(() => {
-    const loadingTimer = window.setTimeout(() => setIsLoading(false), 700);
-    return () => window.clearTimeout(loadingTimer);
   }, []);
 
   useEffect(() => {
@@ -67,16 +61,6 @@ export default function App() {
 
   return (
     <>
-    {isLoading && (
-      <div className="site-loader" role="status" aria-label="Loading portfolio">
-        <div className="loader-brand">
-          <span className="loader-mark">J<span>.</span></span>
-          <span className="loader-name">JAYMAXCKLIEN</span>
-        </div>
-        <span className="loader-caption">PERSONAL PORTFOLIO</span>
-        <div className="loader-track"><span /></div>
-      </div>
-    )}
     <div className="site-shell">
       <header className={`site-header${isScrolled || menuOpen ? " is-visible" : ""}`}>
         <a className="wordmark" href="#top" aria-label="Jaymaxcklien home">
