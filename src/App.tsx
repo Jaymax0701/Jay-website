@@ -19,6 +19,7 @@ function NavLink({ href, children, onClick }: NavLinkProps) {
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [flippedPillars, setFlippedPillars] = useState<string[]>([]);
 
   useEffect(() => {
     const updateScrollState = () => setIsScrolled(window.scrollY > 80);
@@ -39,10 +40,7 @@ export default function App() {
 
     const observer = new IntersectionObserver((entries, currentObserver) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-revealed");
-          currentObserver.unobserve(entry.target);
-        }
+        entry.target.classList.toggle("is-revealed", entry.isIntersecting);
       });
     }, { threshold: 0.12, rootMargin: "0px 0px -35px 0px" });
 
@@ -120,8 +118,41 @@ export default function App() {
           <div className="pillar-grid">
             {pillars.map((pillar) => (
               <article className="pillar-card" key={pillar.number}>
-                <div className="pillar-top"><span>{pillar.number}</span></div>
-                <h3>{pillar.title}</h3><p className="pillar-subtitle">{pillar.subtitle}</p><p>{pillar.description}</p>
+                <div className={`pillar-card-inner${flippedPillars.includes(pillar.number) ? " is-flipped" : ""}`}>
+                  <div className="pillar-face pillar-front">
+                    <div className="pillar-top"><span>{pillar.number} / 03</span><span>01</span></div>
+                    <div className="pillar-face-content">
+                      <h3>{pillar.title}</h3>
+                      <p className="pillar-subtitle">{pillar.subtitle}</p>
+                      <p className="pillar-summary">{pillar.description}</p>
+                    </div>
+                    <button
+                      className="pillar-flip-button"
+                      type="button"
+                      aria-pressed={flippedPillars.includes(pillar.number)}
+                      aria-label={`Read more about ${pillar.title}`}
+                      onClick={() => setFlippedPillars((current) => current.includes(pillar.number) ? current.filter((number) => number !== pillar.number) : [...current, pillar.number])}
+                    >Read more <span aria-hidden="true">↗</span></button>
+                  </div>
+                  <div className="pillar-face pillar-back">
+                    <div className="pillar-top"><span>{pillar.number} / 03</span><span>DETAILS</span></div>
+                    <div className="pillar-face-content">
+                      <h3>{pillar.title}</h3>
+                      <p className="pillar-subtitle">{pillar.subtitle}</p>
+                      <p className="pillar-detail">
+                        {pillar.number === "01" && "Connecting business needs with technology through system analysis, enterprise applications, process improvement, data and digital solutions."}
+                        {pillar.number === "02" && "Building alignment, organising initiatives and helping people contribute their strengths towards a shared purpose."}
+                        {pillar.number === "03" && "Making ideas clear and engaging through event hosting, public speaking, interviews and meaningful conversations."}
+                      </p>
+                    </div>
+                    <button
+                      className="pillar-flip-button"
+                      type="button"
+                      aria-pressed={flippedPillars.includes(pillar.number)}
+                      onClick={() => setFlippedPillars((current) => current.filter((number) => number !== pillar.number))}
+                    >Back <span aria-hidden="true">↶</span></button>
+                  </div>
+                </div>
               </article>
             ))}
           </div>
