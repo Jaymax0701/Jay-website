@@ -13,6 +13,16 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         </a>
       </div>
       <div className="project-symbol"><Github size={25} /></div>
+      <div className="project-live-preview">
+        <div className="project-preview-label"><span className="preview-status-dot" /> LIVE APPLICATION PREVIEW</div>
+        <iframe
+          src="https://churchconnect-alpha.vercel.app/"
+          title="ChurchConnect live application preview"
+          loading="lazy"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allow="clipboard-read; clipboard-write"
+        />
+      </div>
       <p className="eyebrow">{project.category}</p>
       <h3>{project.name}</h3>
       <p className="card-copy">{project.description}</p>
