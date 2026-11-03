@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { ArrowUpRight } from "lucide-react";
 
 interface GitHubRepository {
   id: number; name: string; html_url: string; language: string | null;
@@ -47,7 +46,7 @@ export default function RepositoryGrid() {
         <a className="repo-card" href={repo.html_url} target="_blank" rel="noreferrer" key={repo.id}>
           <div className="repo-card-head">
             <span className="repo-language"><i style={{ background: repo.language ? "#B8C7A5" : "#66736B" }} />{repo.language || "Project"}</span>
-            <ArrowUpRight size={17} />
+            <span className="repo-open-label">VIEW</span>
           </div>
           <h3>{repo.name.replaceAll("-", " ")}</h3>
           <p>{repo.description || "A public project from GitHub."}</p>
