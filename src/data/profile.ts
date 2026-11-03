@@ -23,7 +23,7 @@ export const profile: Profile = {
   fullName: "Jaymaxcklien Bravyain Anak James",
   username: "Jaymax0701",
   headline: "Technology. Leadership. Communication.",
-  intro: "I work at the intersection of business and technology — analysing systems, building digital solutions, leading people and connecting ideas through communication.",
+  intro: "I work at the intersection of business and technology, analysing systems, building digital solutions, leading people and connecting ideas through communication.",
   location: "Bintulu, Sarawak, Malaysia",
   role: "System Analyst · Business Applications",
   github: "https://github.com/Jaymax0701",
@@ -42,7 +42,7 @@ export const featuredProjects: FeaturedProject[] = [
 ];
 
 export const experience: ExperienceItem[] = [
-  { period: "Current", title: "System Analyst — Business Applications", organisation: "Bintulu Port Holdings Berhad", category: "Technology", description: "Working with business applications and enterprise processes, with a focus on analysis, system support and digital initiatives." },
+  { period: "Current", title: "System Analyst, Business Applications", organisation: "Bintulu Port Holdings Berhad", category: "Technology", description: "Working with business applications and enterprise processes, with a focus on analysis, system support and digital initiatives." },
   { period: "Leadership", title: "Emerging Leader Club — Vice President 1", organisation: "Bintulu Port Holdings Berhad", category: "Leadership", description: "Contributing to emerging-leader initiatives spanning capability, stakeholder engagement, growth, communication and culture." },
   { period: "Community", title: "Youth Multimedia & Church Leadership", organisation: "Church and community involvement", category: "Leadership", description: "Supporting youth and ministry activities through coordination, multimedia, communication and team involvement." },
 ];
