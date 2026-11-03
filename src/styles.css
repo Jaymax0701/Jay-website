@@ -248,3 +248,20 @@ html, body, #root, .site-shell { background: #192B48; color: #F3F1EC; }
   color: #FFFFFF;
   border-color: #E3BD83;
 }
+
+
+/* Consistent contrast for every primary call-to-action */
+a.button-primary,
+a.button-primary:visited,
+.button.button-primary {
+  background: #0F1D33 !important;
+  color: #F3F1EC !important;
+  border: 1px solid rgba(227,189,131,.72);
+  box-shadow: 0 5px 16px rgba(5,13,27,.22), inset 0 1px 0 rgba(255,255,255,.08);
+}
+a.button-primary:hover,
+.button.button-primary:hover {
+  background: #263D5D !important;
+  color: #FFFFFF !important;
+  border-color: #E3BD83;
+}
