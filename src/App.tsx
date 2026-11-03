@@ -17,7 +17,17 @@ interface NavLinkProps {
 }
 
 function NavLink({ href, children, onClick }: NavLinkProps) {
-  return <a href={href} onClick={onClick}>{children}</a>;
+  return (
+    <motion.a
+      href={href}
+      onClick={onClick}
+      initial={{ opacity: 0, y: -7 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {children}
+    </motion.a>
+  );
 }
 
 export default function App() {
@@ -30,18 +40,28 @@ export default function App() {
 
   return (
     <div className="site-shell">
-      <header className="site-header">
+      <motion.header
+        className="site-header"
+        initial={{ opacity: 0, y: -18 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      >
         <a className="wordmark" href="#top" aria-label="Jaymaxcklien home">
           <span className="wordmark-mark">J.</span><span>JAYMAXCKLIEN</span>
         </a>
-        <nav className={menuOpen ? "main-nav is-open" : "main-nav"} aria-label="Main navigation">
+        <motion.nav
+          className={menuOpen ? "main-nav is-open" : "main-nav"}
+          aria-label="Main navigation"
+          initial={false}
+          animate={menuOpen ? { y: 0 } : { y: 0 }}
+        >
           {navItems.map(([label, href]) => <NavLink href={href} key={href} onClick={closeMenu}>{label}</NavLink>)}
           <a className="nav-cta" href={profile.github} target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={14} /></a>
-        </nav>
+        </motion.nav>
         <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? "Close menu" : "Open menu"}>
           {menuOpen ? <X /> : <Menu />}
         </button>
-      </header>
+      </motion.header>
 
       <main id="top">
         <section className="hero section-wrap">
