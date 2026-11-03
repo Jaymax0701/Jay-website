@@ -230,3 +230,21 @@ html, body, #root, .site-shell { background: #192B48; color: #F3F1EC; }
 .site-loader { background: #192B48; color: #F3F1EC; }
 .loader-mark { background: #0F1D33; color: #F3F1EC; }
 .loader-track { background: rgba(226,233,244,.2); }
+
+
+/* Keep primary actions readable on the navy theme */
+.button-primary,
+.contact-actions .button-primary,
+.hero-actions .button-primary {
+  background: #0F1D33;
+  color: #F3F1EC;
+  border: 1px solid rgba(227,189,131,.72);
+  box-shadow: 0 5px 16px rgba(5,13,27,.22), inset 0 1px 0 rgba(255,255,255,.08);
+}
+.button-primary:hover,
+.contact-actions .button-primary:hover,
+.hero-actions .button-primary:hover {
+  background: #263D5D;
+  color: #FFFFFF;
+  border-color: #E3BD83;
+}
