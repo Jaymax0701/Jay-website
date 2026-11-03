@@ -1,4 +1,3 @@
-import { ArrowUpRight } from "lucide-react";
 import type { FeaturedProject } from "../data/profile";
 
 interface ProjectCardProps { project: FeaturedProject; }
@@ -8,9 +7,6 @@ export default function ProjectCard({ project }: ProjectCardProps) {
     <article className="project-card">
       <div className="project-card-top">
         <span className="project-index">FEATURED PROJECT</span>
-        <a href={project.repo} target="_blank" rel="noreferrer" aria-label={`Open ${project.name} on GitHub`}>
-          <ArrowUpRight size={19} />
-        </a>
       </div>
       <div className="project-live-preview">
         <div className="project-preview-label"><span className="preview-status-dot" /> LIVE APPLICATION PREVIEW</div>
@@ -29,7 +25,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         {project.stack.map((item) => <span className="tag" key={item}>{item}</span>)}
       </div>
       <a className="text-link" href={project.repo} target="_blank" rel="noreferrer">
-        View repository <ArrowUpRight size={15} />
+        View repository
       </a>
     </article>
   );
