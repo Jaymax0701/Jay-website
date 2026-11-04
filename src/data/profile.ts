@@ -2,7 +2,7 @@ export type PillarIcon = "code" | "users" | "mic";
 
 export interface Profile {
   name: string; fullName: string; username: string; headline: string; intro: string;
-  location: string; role: string; github: string; linkedin: string; email: string;
+  location: string; role: string; github: string; linkedin: string; instagram: string; email: string;
 }
 export interface Pillar {
   number: string; title: string; subtitle: string; description: string; icon: PillarIcon;
@@ -27,7 +27,8 @@ export const profile: Profile = {
   location: "Bintulu, Sarawak, Malaysia",
   role: "System Analyst · Business Applications",
   github: "https://github.com/Jaymax0701",
-  linkedin: "",
+  linkedin: "https://www.linkedin.com/in/jaymaxcklien-bravyain-b91267210/",
+  instagram: "https://www.instagram.com/jaymax_brav/",
   email: "",
 };
 
