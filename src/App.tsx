@@ -82,8 +82,28 @@ export default function App() {
         <a className="wordmark" href="#top" aria-label="Jaymaxcklien home">
           <span className="wordmark-mark">J.</span><span>JAYMAXCKLIEN</span>
         </a>
-        <nav className={menuOpen ? "main-nav is-open" : "main-nav"} aria-label="Main navigation">
-          {navItems.map(([label, href]) => <NavLink href={href} key={href} onClick={closeMenu}>{label}</NavLink>)}
+        <nav ref={navRef} className={menuOpen ? "main-nav is-open" : "main-nav"} aria-label="Main navigation">
+          <span
+            className={`nav-glider${glider.visible ? " is-ready" : ""}`}
+            style={{ width: `${glider.width}px`, transform: `translateX(${glider.left}px)` }}
+            aria-hidden="true"
+          />
+          {navItems.map(([label, href]) => {
+            const section = href.slice(1);
+            const isActive = activeSection === section;
+            return (
+              <a
+                href={href}
+                key={href}
+                data-section={section}
+                className={isActive ? "is-active" : undefined}
+                onClick={closeMenu}
+                aria-current={isActive ? "location" : undefined}
+              >
+                {label}
+              </a>
+            );
+          })}
           <a className="nav-cta" href={profile.github} target="_blank" rel="noreferrer">GitHub</a>
         </nav>
         <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? "Close menu" : "Open menu"}>
@@ -258,6 +278,7 @@ export default function App() {
             <div className="contact-actions">
               <a className="button button-primary" href="https://wa.me/60178095010" target="_blank" rel="noreferrer">Chat on WhatsApp</a>
               {profile.linkedin && <a className="button button-outline" href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>}
+              {profile.instagram && <a className="button button-outline" href={profile.instagram} target="_blank" rel="noreferrer">Instagram</a>}
               {profile.email && <a className="button button-outline" href={`mailto:${profile.email}`}>Email me</a>}
             </div>
           </div>
