@@ -37,13 +37,18 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    const nav = navRef.current;
-    const activeLink = nav?.querySelector<HTMLAnchorElement>(`a[data-section="${activeSection}"]`);
-    if (!nav || !activeLink || window.matchMedia("(max-width: 850px)").matches) {
-      setGlider((current) => ({ ...current, visible: false }));
-      return;
-    }
-    setGlider({ left: activeLink.offsetLeft, width: activeLink.offsetWidth, visible: true });
+    const updateGlider = () => {
+      const nav = navRef.current;
+      const activeLink = nav?.querySelector<HTMLAnchorElement>(`a[data-section="${activeSection}"]`);
+      if (!nav || !activeLink || window.matchMedia("(max-width: 850px)").matches) {
+        setGlider((current) => ({ ...current, visible: false }));
+        return;
+      }
+      setGlider({ left: activeLink.offsetLeft, width: activeLink.offsetWidth, visible: true });
+    };
+    updateGlider();
+    window.addEventListener("resize", updateGlider);
+    return () => window.removeEventListener("resize", updateGlider);
   }, [activeSection]);
 
   useEffect(() => {
