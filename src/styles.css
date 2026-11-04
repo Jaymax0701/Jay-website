@@ -842,3 +842,78 @@ h1 em, h2 em, .tech-note h3 em, .skills-copy h2 em, .contact-inner h2 em,
   .orbit-one, .orbit-two, .orbit-label { animation: none !important; }
   .scroll-reveal, .scroll-reveal.is-revealed { opacity: 1; transform: none; }
 }
+
+
+/* Interactive 3D orbit — pointer tilt and drag rotation */
+.orbit-art {
+  position: relative;
+  cursor: grab;
+  touch-action: pan-y;
+  transform-style: preserve-3d;
+  transition: transform .24s cubic-bezier(.2,.7,.2,1);
+  will-change: transform;
+}
+.orbit-art:active { cursor: grabbing; }
+.orbit-depth {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  transform-style: preserve-3d;
+}
+.orbit-one { transform: translateZ(18px); }
+.orbit-two { transform: translateZ(34px); }
+.orbit-core {
+  transform: translateZ(52px);
+  box-shadow: 0 14px 30px rgba(5,13,27,.22), inset 0 1px 0 rgba(255,255,255,.08);
+}
+.orbit-label {
+  transform: translateZ(42px);
+  transition: background .2s ease, border-color .2s ease, color .2s ease;
+  pointer-events: none;
+}
+.orbit-art:hover .orbit-label {
+  background: linear-gradient(135deg, rgba(227,189,131,.2), rgba(34,54,83,.96));
+  border-color: rgba(227,189,131,.42);
+}
+.orbit-hint {
+  position: absolute;
+  left: 50%;
+  bottom: -7px;
+  transform: translate(-50%, 100%);
+  color: rgba(185,195,210,.7);
+  font: 8px var(--mono);
+  letter-spacing: .12em;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* Champagne gradient glider follows the active navigation item */
+.main-nav .nav-glider {
+  border: 1px solid rgba(246,223,186,.72);
+  background: linear-gradient(120deg,
+    rgba(227,189,131,.28) 0%,
+    rgba(246,223,186,.18) 42%,
+    rgba(185,135,74,.24) 100%);
+  box-shadow:
+    0 3px 14px rgba(5,13,27,.16),
+    inset 0 1px 0 rgba(255,255,255,.28),
+    inset 0 -1px 0 rgba(185,135,74,.16);
+  transition:
+    transform .52s cubic-bezier(.22,1,.36,1),
+    width .52s cubic-bezier(.22,1,.36,1),
+    opacity .2s ease,
+    background-position .4s ease;
+}
+.main-nav a:not(.nav-cta).is-active {
+  color: #FFF1D8;
+}
+@media (max-width: 850px) {
+  .orbit-art { max-width: 270px; }
+  .orbit-hint { font-size: 7px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .orbit-art { transition: none; }
+  .main-nav .nav-glider { transition: none; }
+}
