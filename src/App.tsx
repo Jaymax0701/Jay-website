@@ -9,6 +9,9 @@ import {
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [musicPlaying, setMusicPlaying] = useState(false);
+  const [musicVolume, setMusicVolume] = useState(0.55);
+  const musicRef = useRef<HTMLAudioElement>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("about");
   const [glider, setGlider] = useState({ left: 0, width: 0, visible: false });
@@ -77,6 +80,19 @@ export default function App() {
     return () => observer.disconnect();
   }, []);
   const closeMenu = () => setMenuOpen(false);
+  const toggleMusic = async () => {
+    const audio = musicRef.current;
+    if (!audio) return;
+    if (audio.paused) {
+      try { await audio.play(); } catch { setMusicPlaying(false); }
+    } else {
+      audio.pause();
+    }
+  };
+  const changeMusicVolume = (value: number) => {
+    setMusicVolume(value);
+    if (musicRef.current) musicRef.current.volume = value;
+  };
   const handleOrbitPointerDown = (event: PointerEvent<HTMLDivElement>) => {
     orbitDrag.current = {
       pointerId: event.pointerId,
@@ -338,6 +354,27 @@ export default function App() {
           </div>
         </section>
       </main>
+
+      <div className={`music-player${musicPlaying ? " is-playing" : ""}`} aria-label="Website music player">
+        <audio
+          ref={musicRef}
+          src="/audio/IGNITION_original_techno_dubstep.mp3"
+          loop
+          preload="none"
+          onPlay={() => setMusicPlaying(true)}
+          onPause={() => setMusicPlaying(false)}
+          onEnded={() => setMusicPlaying(false)}
+        />
+        <button className="music-toggle" type="button" onClick={toggleMusic} aria-label={musicPlaying ? "Pause website music" : "Play website music"} aria-pressed={musicPlaying}>
+          <span className="music-equalizer" aria-hidden="true"><i /><i /><i /><i /></span>
+          <span className="music-toggle-copy"><strong>{musicPlaying ? "NOW PLAYING" : "PLAY THE SOUND"}</strong><small>IGNITION · ORIGINAL MIX</small></span>
+          <span className="music-play-symbol" aria-hidden="true">{musicPlaying ? "Ⅱ" : "▶"}</span>
+        </button>
+        <label className="music-volume" aria-label="Music volume">
+          <span aria-hidden="true">VOL</span>
+          <input type="range" min="0" max="1" step="0.01" value={musicVolume} onChange={(event) => changeMusicVolume(Number(event.target.value))} />
+        </label>
+      </div>
 
       <footer className="site-footer">
         <a className="wordmark" href="#top"><span className="wordmark-mark">J.</span><span>JAYMAXCKLIEN</span></a>
