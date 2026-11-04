@@ -14,6 +14,8 @@ export default function App() {
   const [glider, setGlider] = useState({ left: 0, width: 0, visible: false });
   const navRef = useRef<HTMLElement>(null);
   const [flippedPillars, setFlippedPillars] = useState<string[]>([]);
+  const [orbitRotation, setOrbitRotation] = useState({ x: -8, y: 0 });
+  const orbitDrag = useRef<{ pointerId: number; startX: number; startY: number; startRotationX: number; startRotationY: number } | null>(null);
 
   useEffect(() => {
     const updateScrollState = () => setIsScrolled(window.scrollY > 80);
@@ -75,6 +77,38 @@ export default function App() {
     return () => observer.disconnect();
   }, []);
   const closeMenu = () => setMenuOpen(false);
+  const handleOrbitPointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+    orbitDrag.current = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      startRotationX: orbitRotation.x,
+      startRotationY: orbitRotation.y,
+    };
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+  const handleOrbitPointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
+    const drag = orbitDrag.current;
+    if (drag && drag.pointerId === event.pointerId) {
+      setOrbitRotation({
+        x: Math.max(-32, Math.min(32, drag.startRotationX - (event.clientY - drag.startY) * 0.35)),
+        y: Math.max(-38, Math.min(38, drag.startRotationY + (event.clientX - drag.startX) * 0.35)),
+      });
+      return;
+    }
+    if (event.pointerType === "mouse") {
+      const bounds = event.currentTarget.getBoundingClientRect();
+      const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+      const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+      setOrbitRotation({ x: -y * 18, y: x * 22 });
+    }
+  };
+  const handleOrbitPointerUp = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (orbitDrag.current?.pointerId === event.pointerId) orbitDrag.current = null;
+  };
+  const handleOrbitPointerLeave = () => {
+    if (!orbitDrag.current) setOrbitRotation({ x: -8, y: 0 });
+  };
   const navItems = [
     ["About", "#about"], ["Technology", "#technology"], ["Leadership", "#leadership"],
     ["Speaking", "#speaking"], ["Contact", "#contact"],
@@ -135,10 +169,25 @@ export default function App() {
           </div>
           <aside className="hero-aside">
             <div className="hero-aside-top"><span>THREE DIMENSIONS</span><span>EST. 2026</span></div>
-            <div className="orbit-art" aria-hidden="true">
-              <div className="orbit orbit-one" /><div className="orbit orbit-two" />
-              <div className="orbit-core">J<span>.</span></div>
-              <span className="orbit-label label-one">SYSTEMS</span><span className="orbit-label label-two">PEOPLE</span><span className="orbit-label label-three">IDEAS</span>
+            <div
+              className="orbit-art"
+              role="group"
+              aria-label="Interactive three-dimensional orbit. Move your pointer to tilt it, or drag to rotate."
+              onPointerDown={handleOrbitPointerDown}
+              onPointerMove={handleOrbitPointerMove}
+              onPointerUp={handleOrbitPointerUp}
+              onPointerCancel={handleOrbitPointerUp}
+              onPointerLeave={handleOrbitPointerLeave}
+              style={{ transform: `perspective(900px) rotateX(${orbitRotation.x}deg) rotateY(${orbitRotation.y}deg)` }}
+            >
+              <div className="orbit-depth">
+                <div className="orbit orbit-one" /><div className="orbit orbit-two" />
+                <div className="orbit-core">J<span>.</span></div>
+                <span className="orbit-label label-one" title="Systems thinking and technology">SYSTEMS</span>
+                <span className="orbit-label label-two" title="Leadership and people">PEOPLE</span>
+                <span className="orbit-label label-three" title="Ideas, creativity and communication">IDEAS</span>
+              </div>
+              <span className="orbit-hint">DRAG TO EXPLORE · MOVE TO TILT</span>
             </div>
             <div className="hero-aside-bottom"><span>CURIOUS BY NATURE</span><span>IMPACT BY DESIGN</span></div>
           </aside>
