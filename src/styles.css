@@ -751,3 +751,94 @@ h1 em, h2 em, .tech-note h3 em, .skills-copy h2 em, .contact-inner h2 em,
 @media (prefers-reduced-motion: reduce) {
   .main-nav .nav-glider { transition: none; }
 }
+
+
+/* Unslop refinement: restore the editorial type hierarchy and quiet the chrome */
+:root {
+  font-family: "Manrope", sans-serif;
+  --display: "Bodoni Moda", "Times New Roman", serif;
+  --mono: "DM Mono", monospace;
+}
+body, button, input, textarea, select { font-family: "Manrope", sans-serif; }
+h1, h2, h3, blockquote, .wordmark-mark, .loader-mark {
+  font-family: var(--display);
+  font-weight: 500;
+}
+h1 em, h2 em, .tech-note h3 em, .skills-copy h2 em, .contact-inner h2 em,
+.intro-grid h2 span, .leadership-statement blockquote {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 400;
+}
+.hero h1 { font-weight: 500; letter-spacing: -.045em; }
+.hero h1 { clip-path: none; animation: none; }
+
+/* One restrained orbital signature; the J stays centred while the words travel */
+.orbit-core {
+  display: grid;
+  place-items: center;
+  padding: 0 !important;
+  line-height: 1;
+  text-align: center;
+  color: #F3F1EC;
+  background: #14243D;
+  border: 1px solid rgba(227,189,131,.55);
+  box-shadow: none;
+  text-shadow: none;
+  animation: none;
+}
+.orbit-core::after { content: none; display: none; }
+.orbit-core > span {
+  position: absolute;
+  top: 22%;
+  right: 27%;
+  margin: 0;
+  color: #E3BD83;
+  font-size: 28px;
+  line-height: 1;
+  text-shadow: none;
+}
+.orbit-one, .orbit-two { box-shadow: none; }
+.orbit-one::before, .orbit-two::before {
+  box-shadow: none;
+  background: #E3BD83;
+}
+.orbit-two::before { background: #DDE4EF; }
+.orbit-label {
+  padding: 5px 8px;
+  color: #F3F1EC;
+  background: #223653;
+  border: 1px solid rgba(226,233,244,.16);
+  border-radius: 3px;
+  box-shadow: none;
+  font-size: 9px;
+  letter-spacing: .06em;
+}
+
+/* Active navigation is a surface change, not a glowing gradient */
+.main-nav .nav-glider {
+  border-color: rgba(227,189,131,.32);
+  border-radius: 999px;
+  background: rgba(227,189,131,.12);
+  box-shadow: none;
+  transition: transform .36s ease, width .36s ease, opacity .18s ease;
+}
+.main-nav a:not(.nav-cta).is-active { color: #F6DFBA; text-shadow: none; }
+
+/* Reveal content without blur filters or repeated visual noise */
+.scroll-reveal {
+  filter: none;
+  will-change: opacity, transform;
+  transition: opacity .45s ease, transform .45s ease;
+}
+.scroll-reveal.is-revealed { filter: none; }
+.pillar-card-inner { transition: transform .5s ease; }
+.pillar-face { background: #223653; box-shadow: none; }
+.pillar-back { background: #263D5D; }
+.button, .nav-cta, .pillar-flip-button {
+  transition: color .2s ease, background-color .2s ease, border-color .2s ease, transform .2s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .orbit-one, .orbit-two, .orbit-label { animation: none !important; }
+  .scroll-reveal, .scroll-reveal.is-revealed { opacity: 1; transform: none; }
+}
