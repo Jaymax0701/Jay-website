@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type PointerEvent } from "react";
 import SectionHeading from "./components/SectionHeading";
 import ProjectCard from "./components/ProjectCard";
 import RepositoryGrid from "./components/RepositoryGrid";
@@ -77,7 +77,7 @@ export default function App() {
     return () => observer.disconnect();
   }, []);
   const closeMenu = () => setMenuOpen(false);
-  const handleOrbitPointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+  const handleOrbitPointerDown = (event: PointerEvent<HTMLDivElement>) => {
     orbitDrag.current = {
       pointerId: event.pointerId,
       startX: event.clientX,
@@ -87,7 +87,7 @@ export default function App() {
     };
     event.currentTarget.setPointerCapture(event.pointerId);
   };
-  const handleOrbitPointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
+  const handleOrbitPointerMove = (event: PointerEvent<HTMLDivElement>) => {
     const drag = orbitDrag.current;
     if (drag && drag.pointerId === event.pointerId) {
       setOrbitRotation({
@@ -103,7 +103,7 @@ export default function App() {
       setOrbitRotation({ x: -y * 18, y: x * 22 });
     }
   };
-  const handleOrbitPointerUp = (event: React.PointerEvent<HTMLDivElement>) => {
+  const handleOrbitPointerUp = (event: PointerEvent<HTMLDivElement>) => {
     if (orbitDrag.current?.pointerId === event.pointerId) orbitDrag.current = null;
   };
   const handleOrbitPointerLeave = () => {
