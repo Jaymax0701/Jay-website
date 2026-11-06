@@ -1062,3 +1062,20 @@ html, body, #root, .site-shell, main {
 @media (prefers-reduced-motion: reduce) {
   .main-nav .nav-glider { transition: none; }
 }
+
+/* Final alignment corrections: GitHub CTA and orbital monogram */
+@media (min-width: 851px) {
+  .main-nav .nav-cta {
+    margin-left: 8px;
+    margin-right: -3px;
+  }
+}
+.orbit-core {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.orbit-core > span {
+  margin-left: -.08em;
+}
