@@ -308,7 +308,7 @@ export default function App() {
           aria-pressed={musicPlaying}
           title={musicPlaying ? "Pause 140 BPM techno" : "Play 140 BPM techno"}
         >
-          <span aria-hidden="true">{musicPlaying ? "Ⅱ" : "▶"}</span>
+          <span aria-hidden="true">{musicPlaying ? "Ⅱ" : "▶︎"}</span>
         </button>
         <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? "Close menu" : "Open menu"}>
           {menuOpen ? "Close" : "Menu"}
@@ -393,7 +393,7 @@ export default function App() {
                       aria-pressed={flippedPillars.includes(pillar.number)}
                       aria-label={`Read more about ${pillar.title}`}
                       onClick={() => setFlippedPillars((current) => current.includes(pillar.number) ? current.filter((number) => number !== pillar.number) : [...current, pillar.number])}
-                    >Read more <span aria-hidden="true">↗</span></button>
+                    >Read more <span aria-hidden="true">↗︎</span></button>
                   </div>
                   <div className="pillar-face pillar-back">
                     <div className="pillar-top"><span>{pillar.number} / 03</span><span>DETAILS</span></div>
