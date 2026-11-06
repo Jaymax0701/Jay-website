@@ -92,7 +92,7 @@ export default function App() {
 
   useEffect(() => {
     const revealTargets = document.querySelectorAll(
-      ".hero .eyebrow, .hero h1, .hero-description, .hero-actions, .hero-aside, .section-heading, .intro-grid > div, .pillar-card, .project-card, .tech-note, .repo-card, .leadership-statement, .experience-item, .speaking-card, .journey-item, .skills-copy, .skills-list, .contact-inner > *"
+      ".hero .eyebrow, .hero h1, .hero-description, .hero-actions, .hero-aside, .section-heading, .intro-grid > div, .intro-portrait-wrap, .pillar-card, .project-card, .tech-note, .repo-card, .leadership-statement, .experience-item, .speaking-card, .journey-item, .skills-copy, .skills-list, .contact-inner > *"
     );
 
     if (!("IntersectionObserver" in window)) {
@@ -366,6 +366,10 @@ export default function App() {
               <h2>Different disciplines.<br /><span>One shared purpose.</span></h2>
               <p className="body-large">I enjoy understanding how things work, helping people move in the same direction and communicating ideas with clarity. This portfolio brings those parts of my journey together.</p>
               <p className="intro-signature">{profile.fullName} <span>· {profile.role}</span></p>
+            </div>
+            <div className="intro-portrait-wrap">
+              <img className="intro-portrait" src="/images/Profile-Photo.jpeg" alt="Portrait photograph" loading="lazy" />
+              <span className="intro-portrait-glow" aria-hidden="true" />
             </div>
           </div>
         </section>
