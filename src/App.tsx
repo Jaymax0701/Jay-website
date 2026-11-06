@@ -10,8 +10,11 @@ import {
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [musicPlaying, setMusicPlaying] = useState(false);
-  const [musicVolume, setMusicVolume] = useState(0.55);
-  const musicRef = useRef<HTMLAudioElement>(null);
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const schedulerRef = useRef<number | null>(null);
+  const nextNoteTimeRef = useRef(0);
+  const stepRef = useRef(0);
+  const noiseBufferRef = useRef<AudioBuffer | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("about");
   const [glider, setGlider] = useState({ left: 0, width: 0, visible: false });
@@ -89,19 +92,124 @@ export default function App() {
     return () => observer.disconnect();
   }, []);
   const closeMenu = () => setMenuOpen(false);
+  const stopMusic = () => {
+    if (schedulerRef.current !== null) window.clearInterval(schedulerRef.current);
+    schedulerRef.current = null;
+    void audioContextRef.current?.suspend();
+    setMusicPlaying(false);
+  };
   const toggleMusic = async () => {
-    const audio = musicRef.current;
-    if (!audio) return;
-    if (audio.paused) {
-      try { await audio.play(); } catch { setMusicPlaying(false); }
-    } else {
-      audio.pause();
+    if (musicPlaying) {
+      stopMusic();
+      return;
     }
+
+    const AudioContextConstructor = window.AudioContext;
+    if (!AudioContextConstructor) return;
+    const context = audioContextRef.current ?? new AudioContextConstructor();
+    audioContextRef.current = context;
+    await context.resume();
+
+    if (!noiseBufferRef.current) {
+      const buffer = context.createBuffer(1, context.sampleRate, context.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < data.length; i += 1) data[i] = Math.random() * 2 - 1;
+      noiseBufferRef.current = buffer;
+    }
+
+    const bpm = 140;
+    const stepDuration = 60 / bpm / 4;
+    const noise = noiseBufferRef.current;
+    if (!noise) return;
+    const masterGain = context.createGain();
+    masterGain.gain.value = 0.58;
+    masterGain.connect(context.destination);
+    const makeKick = (time: number) => {
+      const osc = context.createOscillator();
+      const amp = context.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(145, time);
+      osc.frequency.exponentialRampToValueAtTime(48, time + 0.13);
+      amp.gain.setValueAtTime(0.82, time);
+      amp.gain.exponentialRampToValueAtTime(0.001, time + 0.22);
+      osc.connect(amp).connect(masterGain);
+      osc.start(time);
+      osc.stop(time + 0.23);
+    };
+    const makeNoiseHit = (time: number, highpass: number, level: number, decay: number) => {
+      const source = context.createBufferSource();
+      const filter = context.createBiquadFilter();
+      const amp = context.createGain();
+      source.buffer = noise;
+      filter.type = "highpass";
+      filter.frequency.value = highpass;
+      amp.gain.setValueAtTime(level, time);
+      amp.gain.exponentialRampToValueAtTime(0.001, time + decay);
+      source.connect(filter).connect(amp).connect(masterGain);
+      source.start(time);
+      source.stop(time + decay + 0.01);
+    };
+    const makeBass = (time: number, note: number) => {
+      const osc = context.createOscillator();
+      const filter = context.createBiquadFilter();
+      const amp = context.createGain();
+      osc.type = "sawtooth";
+      osc.frequency.value = 55 * Math.pow(2, note / 12);
+      filter.type = "lowpass";
+      filter.frequency.setValueAtTime(520, time);
+      filter.frequency.exponentialRampToValueAtTime(145, time + 0.16);
+      amp.gain.setValueAtTime(0.0001, time);
+      amp.gain.linearRampToValueAtTime(0.2, time + 0.012);
+      amp.gain.exponentialRampToValueAtTime(0.001, time + 0.19);
+      osc.connect(filter).connect(amp).connect(masterGain);
+      osc.start(time);
+      osc.stop(time + 0.2);
+    };
+    const makeStab = (time: number) => {
+      [0, 3, 7].forEach((semitone) => {
+        const osc = context.createOscillator();
+        const filter = context.createBiquadFilter();
+        const amp = context.createGain();
+        osc.type = "square";
+        osc.frequency.value = 110 * Math.pow(2, semitone / 12);
+        filter.type = "lowpass";
+        filter.frequency.value = 1250;
+        amp.gain.setValueAtTime(0.0001, time);
+        amp.gain.linearRampToValueAtTime(0.045, time + 0.012);
+        amp.gain.exponentialRampToValueAtTime(0.001, time + 0.24);
+        osc.connect(filter).connect(amp).connect(masterGain);
+        osc.start(time);
+        osc.stop(time + 0.25);
+      });
+    };
+
+    const scheduleStep = (step: number, time: number) => {
+      if (step % 4 === 0) makeKick(time);
+      if (step === 4 || step === 12) makeNoiseHit(time, 1500, 0.2, 0.16);
+      if (step % 2 === 0) makeNoiseHit(time, step === 14 ? 6500 : 8200, step === 14 ? 0.13 : 0.055, step === 14 ? 0.22 : 0.045);
+      const bassNotes: (number | null)[] = [0, null, 0, 7, 3, null, 10, null, 0, null, 0, 7, 3, null, 5, null];
+      const note = bassNotes[step];
+      if (note !== null) makeBass(time, note);
+      if (step === 0 || step === 8) makeStab(time);
+    };
+
+    stepRef.current = 0;
+    nextNoteTimeRef.current = context.currentTime + 0.06;
+    const scheduler = () => {
+      while (nextNoteTimeRef.current < context.currentTime + 0.12) {
+        scheduleStep(stepRef.current, nextNoteTimeRef.current);
+        nextNoteTimeRef.current += stepDuration;
+        stepRef.current = (stepRef.current + 1) % 16;
+      }
+    };
+    scheduler();
+    schedulerRef.current = window.setInterval(scheduler, 25);
+    setMusicPlaying(true);
   };
-  const changeMusicVolume = (value: number) => {
-    setMusicVolume(value);
-    if (musicRef.current) musicRef.current.volume = value;
-  };
+  useEffect(() => () => {
+    if (schedulerRef.current !== null) window.clearInterval(schedulerRef.current);
+    void audioContextRef.current?.close();
+  }, []);
   const handleOrbitPointerDown = (event: PointerEvent<HTMLDivElement>) => {
     orbitDrag.current = {
       pointerId: event.pointerId,
@@ -170,6 +278,16 @@ export default function App() {
           })}
           <a className="nav-cta" href={profile.github} target="_blank" rel="noreferrer">GitHub</a>
         </nav>
+        <button
+          className={`music-toggle${musicPlaying ? " is-playing" : ""}`}
+          type="button"
+          onClick={toggleMusic}
+          aria-label={musicPlaying ? "Pause website music" : "Play website music"}
+          aria-pressed={musicPlaying}
+          title={musicPlaying ? "Pause 140 BPM techno" : "Play 140 BPM techno"}
+        >
+          <span aria-hidden="true">{musicPlaying ? "Ⅱ" : "▶"}</span>
+        </button>
         <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? "Close menu" : "Open menu"}>
           {menuOpen ? "Close" : "Menu"}
         </button>
@@ -364,26 +482,7 @@ export default function App() {
         </section>
       </main>
 
-      <div className={`music-player${musicPlaying ? " is-playing" : ""}`} aria-label="Website music player">
-        <audio
-          ref={musicRef}
-          src="/audio/IGNITION_original_techno_dubstep.mp3"
-          loop
-          preload="none"
-          onPlay={() => setMusicPlaying(true)}
-          onPause={() => setMusicPlaying(false)}
-          onEnded={() => setMusicPlaying(false)}
-        />
-        <button className="music-toggle" type="button" onClick={toggleMusic} aria-label={musicPlaying ? "Pause website music" : "Play website music"} aria-pressed={musicPlaying}>
-          <span className="music-equalizer" aria-hidden="true"><i /><i /><i /><i /></span>
-          <span className="music-toggle-copy"><strong>{musicPlaying ? "NOW PLAYING" : "PLAY THE SOUND"}</strong><small>IGNITION · ORIGINAL MIX</small></span>
-          <span className="music-play-symbol" aria-hidden="true">{musicPlaying ? "Ⅱ" : "▶"}</span>
-        </button>
-        <label className="music-volume" aria-label="Music volume">
-          <span aria-hidden="true">VOL</span>
-          <input type="range" min="0" max="1" step="0.01" value={musicVolume} onChange={(event) => changeMusicVolume(Number(event.target.value))} />
-        </label>
-      </div>
+
 
       <footer className="site-footer">
         <a className="wordmark" href="#top"><span className="wordmark-mark">J.</span><span>JAYMAXCKLIEN</span></a>

@@ -1079,3 +1079,49 @@ html, body, #root, .site-shell, main {
 .orbit-core > span {
   margin-left: -.08em;
 }
+
+
+/* Compact sticky techno control — aligned beside the floating navigation */
+.site-header .music-toggle {
+  position: relative;
+  z-index: 5;
+  display: grid;
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  margin-left: 2px;
+  padding: 0 0 0 2px;
+  border: 1px solid rgba(100,219,232,.42);
+  border-radius: 50%;
+  color: #64DBE8 !important;
+  background: rgba(4,20,30,.9) !important;
+  box-shadow: 0 0 18px rgba(100,219,232,.1), inset 0 1px 0 rgba(232,247,250,.08);
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+  transition: color .2s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+.site-header .music-toggle:hover,
+.site-header .music-toggle.is-playing {
+  color: #04141E !important;
+  border-color: #64DBE8;
+  background: #64DBE8 !important;
+  box-shadow: 0 0 20px rgba(100,219,232,.32);
+}
+.site-header .music-toggle:active { transform: scale(.94); }
+.site-header .music-toggle:focus-visible {
+  outline: 2px solid #FF6D04;
+  outline-offset: 4px;
+}
+@media (max-width: 850px) {
+  .site-header .music-toggle {
+    flex-basis: 38px;
+    width: 38px;
+    height: 38px;
+    margin-left: auto;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-header .music-toggle { transition: none; }
+}
