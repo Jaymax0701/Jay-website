@@ -274,7 +274,7 @@ export default function App() {
     <div className="site-shell">
       <header className={`site-header${isScrolled || menuOpen ? " is-visible" : ""}`}>
         <a className="wordmark" href="#top" aria-label="Jaymaxcklien home">
-          <img className="wordmark-logo" src="/images/Jb%20logo.jfif" alt="Jaymaxcklien logo" />
+          <span className="wordmark-mark">J.</span><span>JAYMAXCKLIEN</span>
         </a>
         <nav ref={navRef} className={menuOpen ? "main-nav is-open" : "main-nav"} aria-label="Main navigation">
           <span
@@ -563,7 +563,7 @@ export default function App() {
 
 
       <footer className="site-footer">
-        <a className="wordmark" href="#top"><img className="wordmark-logo" src="/images/Jb%20logo.jfif" alt="Jaymaxcklien logo" /></a>
+        <a className="wordmark" href="#top"><span className="wordmark-mark">J.</span><span>JAYMAXCKLIEN</span></a>
         <span>Technology. Leadership. Communication.</span>
         <span>© {new Date().getFullYear()} · Built with intention.</span>
       </footer>
