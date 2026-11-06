@@ -942,7 +942,7 @@ html, body, #root, .site-shell, main {
   position: absolute;
   z-index: 0;
   top: 6px;
-  left: 6px;
+  left: 0;
   height: calc(100% - 12px);
   width: 0;
   border: 1px solid rgba(100,219,232,.55);
