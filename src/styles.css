@@ -618,9 +618,33 @@ h1 em, h2 em, .tech-note h3 em, .skills-copy h2 em, .contact-inner h2 em,
   z-index: 2;
   overflow: visible;
   padding: 0;
+}
 
+/* The orbit contents share one square positioning context.
+   This keeps the J exactly centred while labels and rings orbit around it. */
+.orbit-depth {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  transform-style: preserve-3d;
+}
+.orbit-hint {
+  position: absolute;
+  left: 50%;
+  bottom: -22px;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 100%;
+  color: #91ADB7;
+  font: 8px "IBM Plex Mono", monospace;
+  letter-spacing: .12em;
+  text-align: center;
+  white-space: nowrap;
+}
 
-/* BLACK PEARL — clean, global visual system */
+/* BLACK PEARL — clean, global visual system *//* BLACK PEARL — clean, global visual system */
 :root {
   color-scheme: dark;
   font-family: "Space Grotesk", sans-serif;
@@ -775,4 +799,98 @@ h1 em, h2 em, .tech-note h3 em, .skills-copy h2 em,
 .music-volume input { accent-color: #FF6D04 !important; }
 @media (max-width: 850px) {
   .section-wrap { width: min(100% - 40px, 680px) !important; }
+}
+
+
+/* Final layout and palette safeguards */
+:root {
+  color-scheme: dark;
+  --ink: #E8F7FA;
+  --muted: #91ADB7;
+  --paper: #04141E;
+  --deep: #04141E;
+  --deep-soft: #08212D;
+  --line: rgba(100,219,232,.2);
+  --green: #FF6D04;
+}
+html, body, #root, .site-shell, main {
+  background-color: #04141E;
+}
+.hero-aside {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: linear-gradient(145deg, #0A2632, #061B26) !important;
+  border: 1px solid rgba(100,219,232,.22) !important;
+}
+.orbit-art {
+  flex: 1 1 auto;
+  width: min(100%, 330px);
+  aspect-ratio: 1;
+  margin: 18px auto;
+  display: grid;
+  place-items: center;
+  position: relative;
+  transform-style: preserve-3d;
+  touch-action: pan-y;
+  cursor: grab;
+}
+.orbit-art:active { cursor: grabbing; }
+.orbit-depth {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+.orbit {
+  position: absolute;
+  inset: 7%;
+  pointer-events: none;
+}
+.orbit-two { inset: 21%; }
+.orbit-core {
+  position: relative;
+  z-index: 2;
+  width: 116px;
+  height: 116px;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  border-radius: 50%;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 67px;
+  letter-spacing: -.1em;
+}
+.orbit-label {
+  position: absolute;
+  z-index: 3;
+  white-space: nowrap;
+}
+.label-one { top: 13%; left: 5%; }
+.label-two { top: 48%; right: 0; }
+.label-three { bottom: 12%; left: 19%; }
+.orbit-hint {
+  bottom: 2px;
+  color: #91ADB7;
+}
+.hero-aside-top, .hero-aside-bottom {
+  position: relative;
+  z-index: 4;
+}
+.site-header, .main-nav, .nav-glider,
+.project-live-preview, .music-player {
+  color-scheme: dark;
+}
+@media (max-width: 850px) {
+  .orbit-art { width: min(100%, 270px); }
+  .hero-aside { min-height: 360px; }
+  .orbit-hint { bottom: -4px; }
+}
+@media (max-width: 520px) {
+  .section-wrap { width: calc(100% - 36px) !important; }
+  .orbit-core { width: 100px; height: 100px; font-size: 58px; }
+  .orbit-label { padding: 6px 8px; font-size: 8px; }
 }
