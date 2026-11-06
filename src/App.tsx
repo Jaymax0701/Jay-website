@@ -49,7 +49,16 @@ export default function App() {
         setGlider((current) => ({ ...current, visible: false }));
         return;
       }
-      setGlider({ left: activeLink.offsetLeft, width: activeLink.offsetWidth, visible: true });
+
+      // Measure both elements in the same viewport coordinate system.
+      // This avoids offsetLeft including the nav's own padding and shifting the glider.
+      const navRect = nav.getBoundingClientRect();
+      const linkRect = activeLink.getBoundingClientRect();
+      setGlider({
+        left: linkRect.left - navRect.left - nav.clientLeft,
+        width: linkRect.width,
+        visible: true,
+      });
     };
     updateGlider();
     window.addEventListener("resize", updateGlider);
