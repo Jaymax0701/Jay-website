@@ -1125,3 +1125,168 @@ html, body, #root, .site-shell, main {
 @media (prefers-reduced-motion: reduce) {
   .site-header .music-toggle { transition: none; }
 }
+
+/* Leadership photo carousel — centred cover-flow presentation */
+.leadership-carousel {
+  width: 100%;
+  margin-top: 58px;
+  overflow: hidden;
+}
+.leadership-carousel-track {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 390px;
+}
+.leadership-photo-card {
+  position: relative;
+  display: block;
+  flex: 0 0 29%;
+  min-width: 0;
+  height: 330px;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid rgba(100,219,232,.18);
+  border-radius: 16px;
+  background: #061B26;
+  opacity: .48;
+  filter: brightness(.52) saturate(.72);
+  transform: scale(.82);
+  cursor: pointer;
+  box-shadow: 0 18px 44px rgba(0,0,0,.24);
+  transition:
+    flex-basis .55s cubic-bezier(.22,1,.36,1),
+    height .55s cubic-bezier(.22,1,.36,1),
+    transform .55s cubic-bezier(.22,1,.36,1),
+    opacity .4s ease,
+    filter .4s ease,
+    border-color .4s ease,
+    box-shadow .4s ease;
+}
+.leadership-photo-card.is-active {
+  z-index: 2;
+  flex-basis: 42%;
+  height: 370px;
+  opacity: 1;
+  filter: brightness(1) saturate(1.04);
+  transform: scale(1);
+  border-color: rgba(100,219,232,.72);
+  box-shadow: 0 26px 65px rgba(0,0,0,.38), 0 0 30px rgba(100,219,232,.13);
+}
+.leadership-photo-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform .7s cubic-bezier(.22,1,.36,1);
+}
+.leadership-photo-card:hover img { transform: scale(1.045); }
+.leadership-photo-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 42%, rgba(2,12,18,.08) 58%, rgba(2,12,18,.88) 100%);
+  pointer-events: none;
+}
+.leadership-photo-caption {
+  position: absolute;
+  left: 22px;
+  right: 18px;
+  bottom: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  color: #F0FCFF;
+  text-align: left;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .35s ease, transform .45s cubic-bezier(.22,1,.36,1);
+  pointer-events: none;
+}
+.leadership-photo-card.is-active .leadership-photo-caption {
+  opacity: 1;
+  transform: translateY(0);
+}
+.leadership-photo-caption > span {
+  color: #64DBE8;
+  font: 9px "IBM Plex Mono", monospace;
+  letter-spacing: .14em;
+}
+.leadership-photo-caption strong {
+  font: 600 19px "Space Grotesk", sans-serif;
+  letter-spacing: -.025em;
+}
+.leadership-carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 22px;
+}
+.leadership-carousel-arrow {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 1px solid rgba(100,219,232,.3);
+  border-radius: 50%;
+  color: #64DBE8;
+  background: rgba(4,20,30,.78);
+  font-size: 17px;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease, border-color .2s ease, transform .2s ease;
+}
+.leadership-carousel-arrow:hover {
+  color: #04141E;
+  background: #64DBE8;
+  border-color: #64DBE8;
+  transform: translateY(-2px);
+}
+.leadership-carousel-dots { display: flex; align-items: center; gap: 8px; }
+.leadership-carousel-dots button {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: 0;
+  border-radius: 99px;
+  background: rgba(168,194,201,.38);
+  cursor: pointer;
+  transition: width .3s ease, background .3s ease, box-shadow .3s ease;
+}
+.leadership-carousel-dots button.is-active {
+  width: 24px;
+  background: #64DBE8;
+  box-shadow: 0 0 12px rgba(100,219,232,.45);
+}
+.leadership-carousel-count {
+  color: #91ADB7;
+  font: 9px "IBM Plex Mono", monospace;
+  letter-spacing: .1em;
+  font-variant-numeric: tabular-nums;
+}
+.leadership-carousel button:focus-visible {
+  outline: 2px solid #FF6D04;
+  outline-offset: 4px;
+}
+@media (max-width: 850px) {
+  .leadership-carousel-track { min-height: 310px; }
+  .leadership-photo-card { flex-basis: 26%; height: 260px; border-radius: 12px; }
+  .leadership-photo-card.is-active { flex-basis: 48%; height: 300px; }
+  .leadership-photo-caption { left: 14px; bottom: 15px; }
+  .leadership-photo-caption strong { font-size: 15px; }
+}
+@media (max-width: 520px) {
+  .leadership-carousel { margin-top: 38px; }
+  .leadership-carousel-track { min-height: 250px; }
+  .leadership-photo-card { flex-basis: 24%; height: 210px; transform: scale(.78); }
+  .leadership-photo-card.is-active { flex-basis: 56%; height: 240px; }
+  .leadership-photo-caption > span { font-size: 7px; }
+  .leadership-photo-caption strong { font-size: 13px; }
+  .leadership-carousel-controls { gap: 12px; margin-top: 16px; }
+  .leadership-carousel-arrow { width: 34px; height: 34px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .leadership-photo-card, .leadership-photo-card img, .leadership-photo-caption,
+  .leadership-carousel-arrow, .leadership-carousel-dots button { transition: none; }
+}

@@ -7,8 +7,30 @@ import {
 } from "./data/profile";
 
 
+const leadershipPhotos = [
+  {
+    src: "/images/leadership/elc-leadership.jpg",
+    alt: "Official Emerging Leader Club leadership photograph",
+    title: "Emerging Leader Club",
+    label: "LEADERSHIP",
+  },
+  {
+    src: "/images/leadership/leadership-in-action.jpg",
+    alt: "Leading and facilitating an event",
+    title: "Leadership in Action",
+    label: "COLLABORATION",
+  },
+  {
+    src: "/images/leadership/public-speaking.jpg",
+    alt: "Public speaking and event hosting",
+    title: "Public Speaking",
+    label: "COMMUNICATION",
+  },
+];
+
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeLeadershipPhoto, setActiveLeadershipPhoto] = useState(0);
   const [musicPlaying, setMusicPlaying] = useState(false);
   const audioContextRef = useRef<AudioContext | null>(null);
   const schedulerRef = useRef<number | null>(null);
@@ -428,6 +450,58 @@ export default function App() {
                   <div><h3>{item.title}</h3><p className="experience-org">{item.organisation}</p><p>{item.description}</p></div>
                 </article>
               ))}
+            </div>
+          </div>
+          <div className="leadership-carousel" aria-label="Leadership photo carousel">
+            <div className="leadership-carousel-track">
+              {[-1, 0, 1].map((offset, position) => {
+                const photoIndex = (activeLeadershipPhoto + offset + leadershipPhotos.length) % leadershipPhotos.length;
+                const photo = leadershipPhotos[photoIndex];
+                return (
+                  <button
+                    className={`leadership-photo-card${position === 1 ? " is-active" : ""}`}
+                    type="button"
+                    key={photo.src}
+                    onClick={() => setActiveLeadershipPhoto(photoIndex)}
+                    aria-label={`Show ${photo.title}`}
+                    aria-pressed={position === 1}
+                  >
+                    <img src={photo.src} alt={photo.alt} loading="lazy" />
+                    <span className="leadership-photo-shade" />
+                    <span className="leadership-photo-caption">
+                      <span>{photo.label}</span>
+                      <strong>{photo.title}</strong>
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+            <div className="leadership-carousel-controls">
+              <button
+                type="button"
+                className="leadership-carousel-arrow"
+                onClick={() => setActiveLeadershipPhoto((current) => (current - 1 + leadershipPhotos.length) % leadershipPhotos.length)}
+                aria-label="Previous leadership photo"
+              >←</button>
+              <div className="leadership-carousel-dots" aria-label="Choose a leadership photo">
+                {leadershipPhotos.map((photo, index) => (
+                  <button
+                    type="button"
+                    key={photo.src}
+                    className={index === activeLeadershipPhoto ? "is-active" : ""}
+                    onClick={() => setActiveLeadershipPhoto(index)}
+                    aria-label={`Go to ${photo.title}`}
+                    aria-pressed={index === activeLeadershipPhoto}
+                  />
+                ))}
+              </div>
+              <span className="leadership-carousel-count">{String(activeLeadershipPhoto + 1).padStart(2, "0")} / 03</span>
+              <button
+                type="button"
+                className="leadership-carousel-arrow"
+                onClick={() => setActiveLeadershipPhoto((current) => (current + 1) % leadershipPhotos.length)}
+                aria-label="Next leadership photo"
+              >→</button>
             </div>
           </div>
           <div className="leadership-footnote"><span>People · Purpose · Participation · Progress</span></div>
