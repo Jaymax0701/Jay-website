@@ -619,7 +619,8 @@ h1 em, h2 em, .tech-note h3 em, .skills-copy h2 em, .contact-inner h2 em,
   overflow: visible;
   padding: 0;
 
-/* BLACK PEARL / DIGITAL SYSTEMS — final visual layer */
+
+/* BLACK PEARL — clean, global visual system */
 :root {
   color-scheme: dark;
   font-family: "Space Grotesk", sans-serif;
@@ -631,22 +632,31 @@ h1 em, h2 em, .tech-note h3 em, .skills-copy h2 em, .contact-inner h2 em,
   --deep: #04141E;
   --deep-soft: #08212D;
   --line: rgba(100,219,232,.2);
-  --cyan: #64DBE8;
-  --signal: #FF6D04;
 }
 html, body, #root, .site-shell {
-  width: 100%;
   min-width: 320px;
   background: #04141E !important;
-  color: #E8F7FA;
+  color: #E8F7FA !important;
 }
-body, button, input, textarea, select {
-  font-family: "Space Grotesk", sans-serif;
-}
+body, button, input, textarea, select { font-family: "Space Grotesk", sans-serif !important; }
 h1, h2, h3, blockquote, .wordmark, .wordmark-mark, .loader-mark {
   font-family: "Space Grotesk", sans-serif !important;
   font-weight: 600;
   letter-spacing: -.035em;
+}
+.hero, .intro-strip, .pillar-section, .leadership-section,
+.speaking-section, .journey-section, .skills-section,
+.dark-section, .contact-section {
+  background: #04141E !important;
+  color: #E8F7FA !important;
+}
+.hero {
+  background-image: radial-gradient(ellipse at 76% 45%, rgba(17,91,105,.18), transparent 44%) !important;
+}
+.section-wrap {
+  width: min(1160px, calc(100% - 64px)) !important;
+  max-width: 1160px;
+  margin-inline: auto;
 }
 h1 em, h2 em, .tech-note h3 em, .skills-copy h2 em,
 .contact-inner h2 em, .intro-grid h2 span,
@@ -655,60 +665,41 @@ h1 em, h2 em, .tech-note h3 em, .skills-copy h2 em,
   font-family: "Space Grotesk", sans-serif !important;
   font-style: italic;
   font-weight: 500;
-  text-shadow: 0 0 10px rgba(100,219,232,.22), 0 0 26px rgba(100,219,232,.12);
-}
-.section-wrap {
-  width: min(1320px, calc(100% - 96px)) !important;
-  max-width: 1320px;
-  margin-inline: auto;
-}
-.hero {
-  background:
-    radial-gradient(ellipse at 78% 46%, rgba(14,70,83,.2), transparent 42%),
-    #04141E !important;
+  text-shadow: 0 0 10px rgba(100,219,232,.3), 0 0 26px rgba(100,219,232,.16);
 }
 .hero h1 {
   color: #EAF7F8 !important;
-  font-size: clamp(58px, 7vw, 104px);
+  font-family: "Space Grotesk", sans-serif !important;
+  font-size: clamp(54px, 7.4vw, 96px);
   font-weight: 600;
   letter-spacing: -.065em;
-  line-height: .98;
-  text-shadow: 0 0 18px rgba(232,247,250,.08);
+  line-height: .99;
+  text-shadow: 0 0 18px rgba(232,247,250,.1);
 }
 .hero h1 em {
   color: #64DBE8 !important;
-  text-shadow: 0 0 9px rgba(100,219,232,.5), 0 0 28px rgba(100,219,232,.26);
+  text-shadow: 0 0 9px rgba(100,219,232,.55), 0 0 28px rgba(100,219,232,.3);
 }
-.hero .eyebrow, .eyebrow, .hero-bottomline,
-.hero-aside-top, .hero-aside-bottom, .project-index,
-.note-index, .experience-period, .journey-period,
+.eyebrow, .hero-aside-top, .hero-aside-bottom, .hero-bottomline,
+.project-index, .note-index, .experience-period, .journey-period,
 .speaking-status, .repo-open-label {
   font-family: "IBM Plex Mono", monospace !important;
-  letter-spacing: .12em;
 }
-.hero .eyebrow, .eyebrow { color: #64DBE8 !important; }
+.eyebrow, .hero .eyebrow { color: #64DBE8 !important; }
 .hero-description, .body-large, .section-description,
 .pillar-card p:last-child, .card-copy, .repo-card p,
 .tech-note p, .experience-item p:last-child,
 .journey-item p:last-child, .speaking-card p,
-.skills-copy p:last-child, .contact-inner > p:not(.eyebrow) {
-  color: #A8C2C9 !important;
-}
-.hero, .intro-strip, .pillar-section, .leadership-section,
-.speaking-section, .journey-section, .skills-section,
-.dark-section, .contact-section {
-  background: #04141E !important;
-  color: #E8F7FA !important;
-}
-.intro-strip {
-  border-block: 1px solid rgba(100,219,232,.12);
-}
+.skills-copy p:last-child, .contact-inner > p:not(.eyebrow),
+.media-note { color: #A8C2C9 !important; }
 .hero-aside, .leadership-statement, .speaking-card,
 .project-card, .repo-card, .tech-note, .pillar-face {
   background: linear-gradient(145deg, #0A2632, #061B26) !important;
   border-color: rgba(100,219,232,.22) !important;
+  color: #E8F7FA !important;
   box-shadow: 0 12px 36px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.025);
 }
+.intro-strip { border-block: 1px solid rgba(100,219,232,.12); }
 .orbit { border-color: rgba(100,219,232,.32) !important; }
 .orbit-two { border-color: rgba(255,109,4,.42) !important; }
 .orbit-one::before {
@@ -744,10 +735,8 @@ h1 em, h2 em, .tech-note h3 em, .skills-copy h2 em,
   border-color: #FF8A36 !important;
   box-shadow: 0 0 24px rgba(255,109,4,.28);
 }
-.button-quiet, .button-outline, .text-link,
-.dark-section .text-link, .pillar-flip-button {
-  color: #64DBE8 !important;
-}
+.button-quiet, .button-outline, .text-link, .dark-section .text-link,
+.pillar-flip-button { color: #64DBE8 !important; }
 .button-outline, .pillar-flip-button { border-color: rgba(100,219,232,.55) !important; }
 .main-nav {
   background: rgba(4,20,30,.88) !important;
@@ -763,6 +752,7 @@ h1 em, h2 em, .tech-note h3 em, .skills-copy h2 em,
 .journey-list, .journey-item, .hero-bottomline {
   border-color: rgba(100,219,232,.18) !important;
 }
+.pillar-face { background: linear-gradient(145deg,#0A2632,#061B26) !important; }
 .pillar-back { background: linear-gradient(145deg,#10313D,#071B25) !important; }
 .pillar-subtitle, .pillar-top, .experience-org,
 .leadership-footnote, .speaking-card-top, .repo-card-head {
@@ -771,10 +761,11 @@ h1 em, h2 em, .tech-note h3 em, .skills-copy h2 em,
 .tag, .skill-chip {
   color: #BDEBF0 !important;
   border-color: rgba(100,219,232,.24) !important;
-  background: rgba(100,219,232,.035);
+  background: rgba(100,219,232,.035) !important;
 }
 .site-footer { background: #020D14 !important; }
-.site-loader { background: #04141E !important; }
+.site-loader { background: #04141E !important; color: #E8F7FA !important; }
+.loader-mark { background: #08212D !important; color: #E8F7FA !important; }
 .music-player {
   background: rgba(4,20,30,.96) !important;
   border-color: rgba(100,219,232,.32) !important;
@@ -783,9 +774,5 @@ h1 em, h2 em, .tech-note h3 em, .skills-copy h2 em,
 .music-equalizer i { background: #64DBE8 !important; }
 .music-volume input { accent-color: #FF6D04 !important; }
 @media (max-width: 850px) {
-  .section-wrap { width: calc(100% - 40px) !important; }
-  .hero { padding-top: 90px; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .hero h1 { clip-path: none; animation: none; }
+  .section-wrap { width: min(100% - 40px, 680px) !important; }
 }
