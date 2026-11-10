@@ -63,7 +63,7 @@ export default function EmceePage() {
   const portfolioImages = [
     { src: "/images/church-emcee.jpeg", alt: "Jay hosting a church event", label: "Church & Community Hosting" },
     { src: "/images/ryc-emcee.jpeg", alt: "Jay emceeing a youth event", label: "Youth Event Hosting" },
-    { src: "/images/leadership/public-speaking.jpg", alt: "Jay speaking on stage at an event", label: "On Stage & Public Speaking" },
+    { src: "/images/FOY-emcee.jpg", alt: "Jay emceeing the Festival of Youth (FOY)", label: "Festival of Youth (FOY)" },
   ];
 
   const showPreviousPortfolioImage = () => setActivePortfolioImage((current) => (current + portfolioImages.length - 1) % portfolioImages.length);
