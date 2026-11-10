@@ -266,7 +266,7 @@ export default function App() {
   };
   const navItems = [
     ["About", "#about"], ["Technology", "#technology"], ["Leadership", "#leadership"],
-    ["Speaking", "#speaking"], ["Contact", "#contact"],
+    ["Speaking", "#speaking"], ["Emcee", "/emcee"], ["Contact", "#contact"],
   ];
 
   return (
