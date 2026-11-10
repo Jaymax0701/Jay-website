@@ -393,7 +393,7 @@ export default function App() {
                       aria-pressed={flippedPillars.includes(pillar.number)}
                       aria-label={`Read more about ${pillar.title}`}
                       onClick={() => setFlippedPillars((current) => current.includes(pillar.number) ? current.filter((number) => number !== pillar.number) : [...current, pillar.number])}
-                    >Read more <span aria-hidden="true">↗</span></button>
+                    >Read more <span aria-hidden="true">↗︎</span></button>
                   </div>
                   <div className="pillar-face pillar-back">
                     <div className="pillar-top"><span>{pillar.number} / 03</span><span>DETAILS</span></div>
@@ -505,7 +505,7 @@ export default function App() {
                 className="leadership-carousel-arrow"
                 onClick={() => setActiveLeadershipPhoto((current) => (current + 1) % leadershipPhotos.length)}
                 aria-label="Next leadership photo"
-              >→</button>
+              >→︎</button>
             </div>
           </div>
           <div className="leadership-footnote"><span>People · Purpose · Participation · Progress</span></div>
