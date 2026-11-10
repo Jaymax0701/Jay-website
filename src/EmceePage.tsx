@@ -7,21 +7,25 @@ const packages = [
     name: "Church Wedding",
     detail: "Wedding ceremony",
     originalPrice: "RM400",
-    price: "RM350",
+    price: "RM250",
+    savings: "RM150",
   },
   {
     number: "02",
     name: "Wedding Night Reception",
     detail: "Evening celebration",
     originalPrice: "RM450",
-    price: "RM400",
+    price: "RM300",
+    savings: "RM150",
   },
   {
     number: "03",
     name: "Full-Day Wedding",
-    detail: "Ceremony + evening reception",
+    detail: "Church ceremony + evening reception · full day",
     originalPrice: "RM700",
-    price: "RM650",
+    price: "RM550",
+    savings: "RM150",
+    addOn: "Optional rehearsal session: +RM100 (one session)",
     featured: true,
   },
   {
@@ -30,6 +34,7 @@ const packages = [
     detail: "Dinner, launch & formal events · 4–5 hours",
     originalPrice: "RM700",
     price: "RM650",
+    savings: "RM50",
   },
   {
     number: "05",
@@ -37,6 +42,7 @@ const packages = [
     detail: "Concerts, showcases & entertainment events",
     originalPrice: "From RM700",
     price: "From RM650",
+    savings: "RM50",
   },
   {
     number: "06",
@@ -199,15 +205,18 @@ export default function EmceePage() {
                   <span className="emcee-original-price">Was {item.originalPrice}</span>
                 )}
                 <div className="emcee-price">{item.price}<span> / event</span></div>
-                {"originalPrice" in item && (
-                  <span className="emcee-special-rate">SPECIAL RATE · SAVE RM50</span>
+                {"savings" in item && (
+                  <span className="emcee-special-rate">SPECIAL RATE · SAVE {item.savings}</span>
+                )}
+                {"addOn" in item && (
+                  <p className="emcee-package-inclusions">{item.addOn}</p>
                 )}
               </div>
               <a
                 className="emcee-package-cta"
                 href={whatsappLink(
                   "originalPrice" in item
-                    ? `Hi Jay! I'm interested in the ${item.name} package (${item.price}, reduced from ${item.originalPrice}). My event date is [date] and the venue is [location]. Could you let me know your availability?`
+                    ? `Hi Jay! I'm interested in the ${item.name} package (${item.price}, reduced from ${item.originalPrice}).${"addOn" in item ? " I would also like to ask about the optional RM100 rehearsal session." : ""} My event date is [date] and the venue is [location]. Could you let me know your availability?`
                     : `Hi Jay! I'm interested in Wedding Day Coordination at ${item.price}. My event date is [date] and the venue is [location]. Could you share more details and let me know your availability?`,
                 )}
                 target="_blank"
@@ -219,7 +228,7 @@ export default function EmceePage() {
           ))}
         </div>
         <p className="emcee-pricing-note">
-          Special rates shown on emcee packages are reduced by RM50 from the original rates. Concert and entertainment rates are starting rates and may vary with event duration and scope. Wedding Day Coordination is a separate service with a two-person team for up to 8 hours, covering timeline preparation, vendor coordination and programme flow. Additional hours, travel or accommodation, if required, will be quoted separately.
+          Wedding emcee promotional rates: Church Wedding RM250 (was RM400), Wedding Night Reception RM300 (was RM450), and Full-Day Wedding RM550 (was RM700) — save RM150 on each package. The Full-Day Wedding package covers both the church ceremony and evening reception. One optional rehearsal session is RM100; additional sessions are quoted separately. Corporate, concert and entertainment rates retain their RM50 promotional reduction; concert rates may vary with event duration and scope. Wedding Day Coordination is a separate service with a two-person team for up to 8 hours, covering timeline preparation, vendor coordination and programme flow. Additional hours, travel or accommodation, if required, will be quoted separately.
         </p>
       </section>
 
