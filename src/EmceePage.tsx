@@ -59,15 +59,27 @@ const generalEnquiry = whatsappLink(
 export default function EmceePage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activePortfolioImage, setActivePortfolioImage] = useState(0);
+  const [portfolioDirection, setPortfolioDirection] = useState<"up" | "down">("down");
 
   const portfolioImages = [
-    { src: "/images/church-emcee.jpeg", alt: "Jay hosting a church event", label: "Church & Community Hosting" },
-    { src: "/images/ryc-emcee.jpeg", alt: "Jay emceeing a youth event", label: "Youth Event Hosting" },
-    { src: "/images/FOY-emcee.jpg", alt: "Jay emceeing the Festival of Youth (FOY)", label: "Festival of Youth (FOY)" },
+    { src: "/images/Profile-Photo.jpeg", alt: "Jaymaxcklien portrait", label: "01 / THE HOST", title: "Behind the moment." },
+    { src: "/images/church-emcee.jpeg", alt: "Jay hosting a church event", label: "02 / COMMUNITY", title: "Church & community." },
+    { src: "/images/ryc-emcee.jpeg", alt: "Jay emceeing a youth event", label: "03 / YOUTH EVENTS", title: "Energy on stage." },
+    { src: "/images/FOY-emcee.jpg", alt: "Jay emceeing the Festival of Youth (FOY)", label: "04 / FESTIVAL OF YOUTH", title: "Festival of Youth." },
   ];
 
-  const showPreviousPortfolioImage = () => setActivePortfolioImage((current) => (current + portfolioImages.length - 1) % portfolioImages.length);
-  const showNextPortfolioImage = () => setActivePortfolioImage((current) => (current + 1) % portfolioImages.length);
+  const showPreviousPortfolioImage = () => {
+    setPortfolioDirection("up");
+    setActivePortfolioImage((current) => (current + portfolioImages.length - 1) % portfolioImages.length);
+  };
+  const showNextPortfolioImage = () => {
+    setPortfolioDirection("down");
+    setActivePortfolioImage((current) => (current + 1) % portfolioImages.length);
+  };
+  const choosePortfolioImage = (index: number) => {
+    setPortfolioDirection(index > activePortfolioImage ? "down" : "up");
+    setActivePortfolioImage(index);
+  };
 
   useEffect(() => {
     const previousTitle = document.title;
@@ -75,6 +87,47 @@ export default function EmceePage() {
     return () => {
       document.title = previousTitle;
     };
+  }, []);
+
+  useEffect(() => {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) return;
+
+    const revealTargets = document.querySelectorAll<HTMLElement>([
+      ".emcee-topbar",
+      ".emcee-hero-copy",
+      ".emcee-hero-visual",
+      ".emcee-intro > *",
+      ".emcee-section-heading",
+      ".emcee-experience-card",
+      ".emcee-services-heading",
+      ".emcee-service-list > div",
+      ".emcee-package",
+      ".emcee-pricing-note",
+      ".emcee-footer > *",
+    ].join(", "));
+
+    if (!("IntersectionObserver" in window)) {
+      revealTargets.forEach((element) => element.classList.add("is-in-view"));
+      return;
+    }
+
+    revealTargets.forEach((element, index) => {
+      element.classList.add("emcee-reveal");
+      element.dataset.revealDirection = index % 2 === 0 ? "up" : "down";
+    });
+
+    const observer = new IntersectionObserver((entries, currentObserver) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-in-view");
+          currentObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -45px 0px" });
+
+    revealTargets.forEach((element) => observer.observe(element));
+    return () => observer.disconnect();
   }, []);
 
   const closeMenu = () => setMenuOpen(false);
@@ -128,14 +181,57 @@ export default function EmceePage() {
             </div>
           </div>
           <div className="emcee-hero-visual">
-            <div className="emcee-portrait-frame">
-              <img src="/images/Profile-Photo.jpeg" alt="Jaymaxcklien portrait" />
-              <div className="emcee-portrait-overlay">
-                <span>THE VOICE</span>
-                <strong>Behind<br />the moment.</strong>
+            <div
+              className="emcee-portrait-frame"
+              aria-label="Jay's emcee photo portfolio"
+              onTouchStart={(event) => { event.currentTarget.dataset.touchStart = String(event.touches[0].clientY); }}
+              onTouchEnd={(event) => {
+                const start = Number(event.currentTarget.dataset.touchStart);
+                const delta = event.changedTouches[0].clientY - start;
+                if (Math.abs(delta) > 45) (delta > 0 ? showPreviousPortfolioImage : showNextPortfolioImage)();
+              }}
+            >
+              {portfolioImages.map((photo, index) => (
+                <div
+                  className={`emcee-portrait-slide${index === activePortfolioImage ? " is-active" : ""}`}
+                  data-direction={portfolioDirection}
+                  aria-hidden={index !== activePortfolioImage}
+                  key={photo.src}
+                >
+                  <img
+                    className={index === 0 ? "emcee-portrait-image is-profile" : "emcee-portrait-image"}
+                    src={photo.src}
+                    alt={photo.alt}
+                    loading={index === 0 ? "eager" : "lazy"}
+                  />
+                </div>
+              ))}
+              <div className="emcee-portrait-frame-shade" />
+              <div className="emcee-portrait-overlay" aria-live="polite" aria-atomic="true">
+                <span>{portfolioImages[activePortfolioImage].label}</span>
+                <strong>{portfolioImages[activePortfolioImage].title}</strong>
               </div>
             </div>
-            <span className="emcee-visual-index">01 — 04 / ON STAGE</span>
+            <div className="emcee-portrait-controls">
+              <div className="emcee-portrait-dots" aria-label="Choose portfolio photo">
+                {portfolioImages.map((photo, index) => (
+                  <button
+                    key={photo.src}
+                    type="button"
+                    className={index === activePortfolioImage ? "is-active" : ""}
+                    onClick={() => choosePortfolioImage(index)}
+                    aria-label={`Show photo ${index + 1}: ${photo.label}`}
+                    aria-pressed={index === activePortfolioImage}
+                  />
+                ))}
+              </div>
+              <span className="emcee-portrait-count">{String(activePortfolioImage + 1).padStart(2, "0")} <i>/ 04</i></span>
+              <div className="emcee-portrait-arrows">
+                <button type="button" onClick={showPreviousPortfolioImage} aria-label="Previous photo">↑</button>
+                <button type="button" onClick={showNextPortfolioImage} aria-label="Next photo">↓</button>
+              </div>
+            </div>
+            <span className="emcee-visual-index">PORTFOLIO / 04</span>
             <span className="emcee-vertical-note">BINTULU · SARAWAK · MALAYSIA</span>
           </div>
           <div className="emcee-hero-bottom"><span>PROFESSIONAL · APPROACHABLE · ENGAGING</span><span>SCROLL TO EXPLORE ↓</span></div>
@@ -171,27 +267,7 @@ export default function EmceePage() {
               </article>
             ))}
           </div>
-          <div className="emcee-gallery" aria-label="Emcee portfolio photographs">
-            <div className="emcee-gallery-heading">
-              <div><p className="emcee-eyebrow">IN THE MOMENT</p><h3>On <em>stage.</em></h3></div>
-              <div className="emcee-gallery-controls">
-                <button type="button" onClick={showPreviousPortfolioImage} aria-label="Previous portfolio photo">←</button>
-                <span>{String(activePortfolioImage + 1).padStart(2, "0")} <i>/ 03</i></span>
-                <button type="button" onClick={showNextPortfolioImage} aria-label="Next portfolio photo">→</button>
-              </div>
-            </div>
-            <div className="emcee-gallery-frame" onTouchStart={(event) => { event.currentTarget.dataset.touchStart = String(event.touches[0].clientX); }} onTouchEnd={(event) => { const start = Number(event.currentTarget.dataset.touchStart); const delta = event.changedTouches[0].clientX - start; if (Math.abs(delta) > 45) (delta > 0 ? showPreviousPortfolioImage : showNextPortfolioImage)(); }}>
-              {portfolioImages.map((photo, index) => (
-                <figure className={`emcee-gallery-slide${index === activePortfolioImage ? " is-active" : ""}`} aria-hidden={index !== activePortfolioImage} key={photo.src}>
-                  <img src={photo.src} alt={photo.alt} loading="lazy" />
-                  <figcaption><span>0{index + 1} / 03</span><strong>{photo.label}</strong></figcaption>
-                </figure>
-              ))}
-            </div>
-            <div className="emcee-gallery-dots" aria-label="Choose portfolio photo">
-              {portfolioImages.map((photo, index) => <button key={photo.src} type="button" className={index === activePortfolioImage ? "is-active" : ""} onClick={() => setActivePortfolioImage(index)} aria-label={`Show photo ${index + 1}: ${photo.label}`} aria-pressed={index === activePortfolioImage} />)}
-            </div>
-          </div>
+
         </section>
 
         <section className="emcee-services">
