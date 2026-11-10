@@ -1355,3 +1355,62 @@ html, body, #root, .site-shell, main {
   }
   .intro-portrait { max-height: 320px; }
 }
+
+
+/* CSS-drawn homepage arrows: avoids emoji/font glyph rendering differences. */
+.ui-arrow {
+  display: inline-block;
+  position: relative;
+  width: 0.8em;
+  height: 0.8em;
+  color: currentColor;
+  flex: 0 0 auto;
+}
+.ui-arrow-up-right {
+  border-top: 1.5px solid currentColor;
+  border-right: 1.5px solid currentColor;
+  width: 0.62em;
+  height: 0.62em;
+  margin-left: 0.12em;
+  transform: translateY(0.08em);
+}
+.ui-arrow-up-right::after {
+  content: "";
+  position: absolute;
+  width: 1.05em;
+  height: 1.5px;
+  top: -0.04em;
+  right: -0.04em;
+  background: currentColor;
+  transform: rotate(-45deg);
+  transform-origin: right center;
+}
+.ui-arrow-left::before,
+.ui-arrow-right::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 0.48em;
+  height: 0.48em;
+  border-top: 1.5px solid currentColor;
+  border-right: 1.5px solid currentColor;
+}
+.ui-arrow-left::before {
+  left: 0.2em;
+  transform: translateY(-50%) rotate(-135deg);
+}
+.ui-arrow-left::after,
+.ui-arrow-right::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0.16em;
+  width: 0.62em;
+  height: 1.5px;
+  background: currentColor;
+  transform: translateY(-50%);
+}
+.ui-arrow-right::before {
+  right: 0.2em;
+  transform: translateY(-50%) rotate(45deg);
+}
