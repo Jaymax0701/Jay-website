@@ -38,6 +38,13 @@ const packages = [
     originalPrice: "From RM700",
     price: "From RM650",
   },
+  {
+    number: "06",
+    name: "Wedding Day Coordination",
+    detail: "2-person team · up to 8 hours",
+    inclusions: "Timeline preparation · vendor coordination · programme flow",
+    price: "RM1,200",
+  },
 ];
 
 const whatsappLink = (message: string) =>
@@ -184,14 +191,25 @@ export default function EmceePage() {
               </div>
               <p className="emcee-package-detail">{item.detail}</p>
               <h3>{item.name}</h3>
+              {"inclusions" in item && (
+                <p className="emcee-package-inclusions">{item.inclusions}</p>
+              )}
               <div className="emcee-price-block">
-                <span className="emcee-original-price">Was {item.originalPrice}</span>
+                {"originalPrice" in item && (
+                  <span className="emcee-original-price">Was {item.originalPrice}</span>
+                )}
                 <div className="emcee-price">{item.price}<span> / event</span></div>
-                <span className="emcee-special-rate">SPECIAL RATE · SAVE RM50</span>
+                {"originalPrice" in item && (
+                  <span className="emcee-special-rate">SPECIAL RATE · SAVE RM50</span>
+                )}
               </div>
               <a
                 className="emcee-package-cta"
-                href={whatsappLink(`Hi Jay! I'm interested in the ${item.name} package (${item.price}, reduced from ${item.originalPrice}). My event date is [date] and the venue is [location]. Could you let me know your availability?`)}
+                href={whatsappLink(
+                  "originalPrice" in item
+                    ? `Hi Jay! I'm interested in the ${item.name} package (${item.price}, reduced from ${item.originalPrice}). My event date is [date] and the venue is [location]. Could you let me know your availability?`
+                    : `Hi Jay! I'm interested in Wedding Day Coordination at ${item.price}. My event date is [date] and the venue is [location]. Could you share more details and let me know your availability?`,
+                )}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -201,7 +219,7 @@ export default function EmceePage() {
           ))}
         </div>
         <p className="emcee-pricing-note">
-          Special rates shown are reduced by RM50 from the original rates. Concert and entertainment rates are starting rates and may vary with event duration and scope. Travel or accommodation for outstation events, if required, will be quoted separately.
+          Special rates shown on emcee packages are reduced by RM50 from the original rates. Concert and entertainment rates are starting rates and may vary with event duration and scope. Wedding Day Coordination is a separate service with a two-person team for up to 8 hours, covering timeline preparation, vendor coordination and programme flow. Additional hours, travel or accommodation, if required, will be quoted separately.
         </p>
       </section>
 
