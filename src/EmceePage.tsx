@@ -100,6 +100,7 @@ export default function EmceePage() {
   const closeMenu = () => setMenuOpen(false);
 
   return (
+    <>
     <main className="emcee-page" id="top">
       <header className="emcee-topbar">
         <a className="emcee-brand" href="/" aria-label="Go to home page">
@@ -210,5 +211,9 @@ export default function EmceePage() {
         </div>
       </footer>
     </main>
+    <a className="emcee-floating-book" href={generalEnquiry} target="_blank" rel="noopener noreferrer" aria-label="Book an emcee on WhatsApp">
+      <span>BOOK AN EMCEE</span><span className="emcee-floating-book-arrow" aria-hidden="true">↗︎</span>
+    </a>
+    </>
   );
 }
