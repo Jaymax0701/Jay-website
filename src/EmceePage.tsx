@@ -29,7 +29,8 @@ const packages = [
   },
 ];
 
-const whatsapp = "https://wa.me/60178095010?text=" + encodeURIComponent("Hi Jay! I'm interested in engaging you as an emcee. I'd like to discuss my event details and availability.");
+const whatsappLink = (message: string) => `https://wa.me/60178095010?text=${encodeURIComponent(message)}`;
+const generalEnquiry = whatsappLink("Hi Jay! I'm interested in engaging you as an emcee. I'd like to discuss my event details and availability.");
 
 export default function EmceePage() {
   useEffect(() => {
@@ -58,7 +59,10 @@ export default function EmceePage() {
           <div className="emcee-language">
             <span>ENGLISH</span><i /> <span>BAHASA MALAYSIA</span>
           </div>
-          <a className="emcee-primary-cta" href="#packages">Explore packages <span aria-hidden="true">↓</span></a>
+          <div className="emcee-hero-actions">
+            <a className="emcee-primary-cta" href={generalEnquiry} target="_blank" rel="noopener noreferrer">Check availability <span aria-hidden="true">↗</span></a>
+            <a className="emcee-secondary-cta" href="#packages">Explore packages <span aria-hidden="true">↓</span></a>
+          </div>
         </div>
         <div className="emcee-hero-orbit" aria-hidden="true">
           <div className="emcee-orbit-ring emcee-ring-one" />
@@ -103,7 +107,7 @@ export default function EmceePage() {
               <div className="emcee-price">{item.price}<span> / event</span></div>
               <p className="emcee-package-description">{item.description}</p>
               <ul>{item.includes.map((line) => <li key={line}><span aria-hidden="true">✓</span>{line}</li>)}</ul>
-              <a className="emcee-package-cta" href={whatsapp}>Enquire about this package <span aria-hidden="true">↗</span></a>
+              <a className="emcee-package-cta" href={whatsappLink("Hi Jay! I'm interested in the " + item.name + " package (" + item.price + "). My event date is [date] and the venue is [location]. Could you let me know your availability and the next steps?")} target="_blank" rel="noopener noreferrer">Enquire about this package <span aria-hidden="true">↗</span></a>
             </article>
           ))}
         </div>
@@ -124,13 +128,17 @@ export default function EmceePage() {
         <p className="emcee-eyebrow">HAVE AN EVENT COMING UP?</p>
         <h2>Let's make your<br /><em>occasion memorable.</em></h2>
         <p>Share a few details about your event and let's talk.</p>
-        <a className="emcee-primary-cta" href={whatsapp}>Enquire on WhatsApp <span aria-hidden="true">↗</span></a>
+        <a className="emcee-primary-cta" href={generalEnquiry} target="_blank" rel="noopener noreferrer">Enquire on WhatsApp <span aria-hidden="true">↗</span></a>
         <div className="emcee-footer-bottom">
           <a className="emcee-brand" href="/"><span className="emcee-brand-mark">J.</span><span>JAYMAXCKLIEN</span></a>
           <span>EVENT HOST & EMCEE · ENGLISH / BAHASA MALAYSIA</span>
           <a href="/">Back to portfolio ↑</a>
         </div>
       </footer>
+      <div className="emcee-mobile-cta" role="region" aria-label="Booking enquiry">
+        <div><strong>Have an event coming up?</strong><span>Let's check availability.</span></div>
+        <a href={generalEnquiry} target="_blank" rel="noopener noreferrer">Enquire <span aria-hidden="true">↗</span></a>
+      </div>
     </main>
   );
 }
