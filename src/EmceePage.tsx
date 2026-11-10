@@ -6,19 +6,22 @@ const packages = [
     number: "01",
     name: "Church Wedding",
     detail: "Wedding ceremony",
-    price: "RM400",
+    originalPrice: "RM400",
+    price: "RM350",
   },
   {
     number: "02",
     name: "Wedding Night Reception",
     detail: "Evening celebration",
-    price: "RM450",
+    originalPrice: "RM450",
+    price: "RM400",
   },
   {
     number: "03",
     name: "Full-Day Wedding",
     detail: "Ceremony + evening reception",
-    price: "RM700",
+    originalPrice: "RM700",
+    price: "RM650",
     featured: true,
   },
   {
@@ -31,7 +34,8 @@ const packages = [
     number: "05",
     name: "Concert & Entertainment",
     detail: "Concerts, showcases & entertainment events",
-    price: "From RM700",
+    originalPrice: "From RM700",
+    price: "From RM650",
   },
 ];
 
@@ -179,10 +183,14 @@ export default function EmceePage() {
               </div>
               <p className="emcee-package-detail">{item.detail}</p>
               <h3>{item.name}</h3>
-              <div className="emcee-price">{item.price}<span> / event</span></div>
+              <div className="emcee-price-block">
+                <span className="emcee-original-price">Was {item.originalPrice}</span>
+                <div className="emcee-price">{item.price}<span> / event</span></div>
+                <span className="emcee-special-rate">SPECIAL RATE · SAVE RM50</span>
+              </div>
               <a
                 className="emcee-package-cta"
-                href={whatsappLink(`Hi Jay! I'm interested in the ${item.name} package (${item.price}). My event date is [date] and the venue is [location]. Could you let me know your availability?`)}
+                href={whatsappLink(`Hi Jay! I'm interested in the ${item.name} package (${item.price}, reduced from ${item.originalPrice}). My event date is [date] and the venue is [location]. Could you let me know your availability?`)}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -192,7 +200,7 @@ export default function EmceePage() {
           ))}
         </div>
         <p className="emcee-pricing-note">
-          Rates are in Malaysian Ringgit (RM). Concert and entertainment rates are starting rates and may vary with event duration and scope. Travel or accommodation for outstation events, if required, will be quoted separately.
+          Special rates shown are reduced by RM50 from the original rates. Concert and entertainment rates are starting rates and may vary with event duration and scope. Travel or accommodation for outstation events, if required, will be quoted separately.
         </p>
       </section>
 
