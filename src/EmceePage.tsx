@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import "./emcee.css";
 
 const packages = [
-  { number: "01", name: "Church Wedding", detail: "Wedding ceremony", originalPrice: "RM400", price: "RM250", savings: "RM150" },
-  { number: "02", name: "Wedding Night Reception", detail: "Evening celebration", originalPrice: "RM450", price: "RM300", savings: "RM150" },
-  { number: "03", name: "Full-Day Wedding", detail: "Church ceremony + evening reception · full day", originalPrice: "RM700", price: "RM550", savings: "RM150", addOn: "Optional rehearsal session: +RM100 (one session)", featured: true },
+  { number: "01", name: "Church Wedding", detail: "Wedding ceremony", originalPrice: "RM400", price: "RM300", savings: "RM100" },
+  { number: "02", name: "Wedding Night Reception", detail: "Evening celebration", originalPrice: "RM450", price: "RM400", savings: "RM50" },
+  { number: "03", name: "Full-Day Wedding", detail: "Church ceremony + evening reception · full day", originalPrice: "RM700", price: "RM650", savings: "RM50", addOn: "Optional rehearsal session: +RM100 (one session)", featured: true },
   { number: "04", name: "Corporate Event", detail: "Dinner, launch & formal events · 4–5 hours", originalPrice: "RM700", price: "RM650", savings: "RM50" },
   { number: "05", name: "Concert & Entertainment", detail: "Concerts, showcases & entertainment events", originalPrice: "From RM700", price: "From RM650", savings: "RM50" },
-  { number: "06", name: "Wedding Day Coordination", detail: "2-person team · up to 8 hours", inclusions: "Timeline preparation · vendor coordination · programme flow", price: "RM1,200" },
+  { number: "06", name: "Event Coordination", detail: "2-person team · up to 8 hours", inclusions: "Timeline preparation · vendor coordination · programme flow", price: "From RM1,500" },
 ];
 
 const experiences = [
@@ -204,7 +204,7 @@ export default function EmceePage() {
                   href={whatsappLink(
                     "originalPrice" in item
                       ? `Hi Jay! I'm interested in the ${item.name} package (${item.price}, reduced from ${item.originalPrice}).${"addOn" in item ? " I would also like to ask about the optional RM100 rehearsal session." : ""} My event date is [date] and the venue is [location]. Could you let me know your availability?`
-                      : `Hi Jay! I'm interested in Wedding Day Coordination at ${item.price}. My event date is [date] and the venue is [location]. Could you share more details and let me know your availability?`,
+                      : `Hi Jay! I'm interested in Event Coordination at ${item.price}. My event date is [date] and the venue is [location]. Could you share more details and let me know your availability?`,
                   )}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -215,7 +215,7 @@ export default function EmceePage() {
             ))}
           </div>
           <p className="emcee-pricing-note">
-            Wedding emcee promotional rates: Church Wedding RM250 (was RM400), Wedding Night Reception RM300 (was RM450), and Full-Day Wedding RM550 (was RM700) — save RM150 on each package. The Full-Day Wedding package covers both the church ceremony and evening reception. One optional rehearsal session is RM100; additional sessions are quoted separately. Corporate, concert and entertainment rates retain their RM50 promotional reduction; concert rates may vary with event duration and scope. Wedding Day Coordination is a separate service with a two-person team for up to 8 hours, covering timeline preparation, vendor coordination and programme flow. Additional hours, travel or accommodation, if required, will be quoted separately.
+            Wedding emcee promotional rates: Church Wedding RM300 (was RM400), Wedding Night Reception RM400 (was RM450), and Full-Day Wedding RM650 (was RM700) — save RM100, RM50 and RM50 respectively. The Full-Day Wedding package covers both the church ceremony and evening reception. One optional rehearsal session is RM100; additional sessions are quoted separately. Corporate, concert and entertainment rates retain their RM50 promotional reduction; concert rates may vary with event duration and scope. Event Coordination is offered as one package from RM1,500, with a two-person team for up to 8 hours, covering timeline preparation, vendor coordination and programme flow. Additional hours, travel or accommodation, if required, will be quoted separately.
           </p>
         </section>
 
