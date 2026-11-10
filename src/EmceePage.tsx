@@ -95,6 +95,11 @@ export default function EmceePage() {
 
     const revealTargets = document.querySelectorAll<HTMLElement>([
       ".emcee-topbar",
+      ".emcee-intro",
+      ".emcee-experience",
+      ".emcee-services",
+      ".emcee-pricing",
+      ".emcee-footer",
       ".emcee-hero-copy",
       ".emcee-hero-visual",
       ".emcee-intro > *",
