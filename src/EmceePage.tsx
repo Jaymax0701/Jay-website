@@ -114,7 +114,7 @@ export default function EmceePage() {
         </nav>
 
         <a className="emcee-nav-cta" href={generalEnquiry} target="_blank" rel="noopener noreferrer">
-          Book an emcee <span aria-hidden="true">↗</span>
+          Book an emcee <span aria-hidden="true">↗︎</span>
         </a>
 
         <button
@@ -134,7 +134,7 @@ export default function EmceePage() {
           <h1>Emcee &<br /><em>Event Hosting.</em></h1>
           <p className="emcee-hero-subtitle">English · Bahasa Malaysia</p>
           <a className="emcee-primary-cta" href="#packages">
-            View packages <span aria-hidden="true">↓</span>
+            View packages <span aria-hidden="true">↓︎</span>
           </a>
         </div>
 
@@ -185,7 +185,7 @@ export default function EmceePage() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Enquire about package <span aria-hidden="true">↗</span>
+                Enquire about package <span aria-hidden="true">↗︎</span>
               </a>
             </article>
           ))}
@@ -201,12 +201,12 @@ export default function EmceePage() {
           <h2>Let's make it <em>memorable.</em></h2>
         </div>
         <a className="emcee-primary-cta" href={generalEnquiry} target="_blank" rel="noopener noreferrer">
-          Enquire on WhatsApp <span aria-hidden="true">↗</span>
+          Enquire on WhatsApp <span aria-hidden="true">↗︎</span>
         </a>
         <div className="emcee-footer-bottom">
           <a className="emcee-brand" href="/"><span className="emcee-brand-mark">J.</span><span>JAYMAXCKLIEN</span></a>
           <span>EVENT HOST & EMCEE · ENGLISH / BAHASA MALAYSIA</span>
-          <a href="#top">Back to top ↑</a>
+          <a href="#top">Back to top ↑︎</a>
         </div>
       </footer>
     </main>
