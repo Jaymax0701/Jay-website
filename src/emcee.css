@@ -67,7 +67,7 @@
 .emcee-portrait-arrows button { width: 27px; height: 27px; padding: 0; border: 1px solid var(--emcee-line); color: var(--emcee-gold); background: transparent; cursor: pointer; line-height: 1; transition: color .2s ease, background .2s ease; }
 .emcee-portrait-arrows button:hover { color: #090909; background: var(--emcee-gold); }
 .emcee-hero-visual::before { position: absolute; z-index: -1; top: 24px; right: 0; bottom: 0; left: 25px; border: 1px solid var(--emcee-gold-soft); content: ""; }
-.emcee-visual-index { position: absolute; right: 25px; bottom: 8px; color: var(--emcee-gold); font: 8px "DM Mono", monospace; letter-spacing: .13em; }
+
 .emcee-vertical-note { position: absolute; top: 12px; right: -24px; color: #827B70; font: 8px "DM Mono", monospace; letter-spacing: .18em; writing-mode: vertical-rl; }
 .emcee-hero-bottom { position: absolute; right: 0; bottom: 22px; left: 0; display: flex; justify-content: space-between; color: #777168; font: 8px "DM Mono", monospace; letter-spacing: .13em; }
 
