@@ -324,43 +324,58 @@
 
 @media (prefers-reduced-motion: reduce) { .emcee-floating-book, .emcee-floating-book::after { animation: none; } .emcee-floating-book::after { display: none; } }
 
-/* Burgundy accent: adds a warmer live-event character while preserving champagne gold as the primary premium tone. */
+/* Champagne-gold highlight system: warm, premium emphasis throughout the emcee page. */
 .emcee-page {
-  --emcee-burgundy: #7A263A;
-  --emcee-burgundy-bright: #A33B52;
-  --emcee-burgundy-wash: rgba(122,38,58,.16);
-  --emcee-burgundy-line: rgba(163,59,82,.48);
+  --emcee-highlight: #D6B77A;
+  --emcee-highlight-bright: #F0D9A8;
+  --emcee-highlight-glow: rgba(214,183,122,.42);
 }
+.emcee-page em,
 .emcee-nav a:hover,
 .emcee-text-link span,
 .emcee-portrait-overlay span,
 .emcee-experience-category,
 .emcee-package-detail,
-.emcee-service-list > div > span:first-child {
-  color: var(--emcee-burgundy-bright);
+.emcee-service-list > div > span:first-child,
+.emcee-package-cta,
+.emcee-footer-bottom > a:last-child {
+  color: var(--emcee-highlight) !important;
+  text-shadow: 0 0 14px var(--emcee-highlight-glow);
 }
 .emcee-portrait-dots button.is-active {
-  background: var(--emcee-burgundy-bright);
+  background: var(--emcee-highlight);
+  box-shadow: 0 0 12px var(--emcee-highlight-glow);
 }
 .emcee-portrait-arrows button:hover {
-  color: #fff;
-  background: var(--emcee-burgundy);
+  color: #090909;
+  border-color: var(--emcee-highlight);
+  background: var(--emcee-highlight);
+  box-shadow: 0 0 16px var(--emcee-highlight-glow);
 }
 .emcee-hero-visual::before {
-  border-color: var(--emcee-burgundy);
+  border-color: var(--emcee-highlight);
+  box-shadow: 0 0 20px rgba(214,183,122,.12);
 }
 .emcee-experience-card:hover {
-  border-color: var(--emcee-burgundy-line);
+  border-color: rgba(214,183,122,.65);
+  box-shadow: 0 0 22px rgba(214,183,122,.08);
 }
 .emcee-experience-featured {
-  border-color: var(--emcee-burgundy-line);
-  background: linear-gradient(135deg, rgba(122,38,58,.3), #171614 72%);
+  border-color: rgba(214,183,122,.55);
+  background: linear-gradient(135deg, rgba(214,183,122,.15), #171614 72%);
 }
 .emcee-package-featured {
-  border-color: var(--emcee-burgundy-line);
-  background: linear-gradient(150deg, rgba(122,38,58,.28), #171614 72%);
+  border-color: rgba(214,183,122,.72);
+  background: linear-gradient(150deg, rgba(214,183,122,.17), #171614 72%);
 }
 .emcee-special-rate {
-  color: #D98A9B;
-  border-color: var(--emcee-burgundy-line);
+  color: var(--emcee-highlight-bright);
+  border-color: rgba(214,183,122,.5);
+  box-shadow: 0 0 14px rgba(214,183,122,.09);
+}
+.emcee-best-value {
+  box-shadow: 0 0 15px rgba(214,183,122,.28);
+}
+.emcee-eyebrow > span {
+  box-shadow: 0 0 13px rgba(214,183,122,.7);
 }
