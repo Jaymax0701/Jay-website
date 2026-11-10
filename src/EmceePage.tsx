@@ -183,7 +183,9 @@ export default function EmceePage() {
           <div className="emcee-hero-visual">
             <div
               className="emcee-portrait-frame"
-              aria-label="Jay's emcee photo portfolio"
+              role="group"
+              aria-roledescription="carousel"
+              aria-label="Jay’s emcee photo portfolio"
               onTouchStart={(event) => { event.currentTarget.dataset.touchStart = String(event.touches[0].clientY); }}
               onTouchEnd={(event) => {
                 const start = Number(event.currentTarget.dataset.touchStart);
@@ -231,7 +233,6 @@ export default function EmceePage() {
                 <button type="button" onClick={showNextPortfolioImage} aria-label="Next photo">↓</button>
               </div>
             </div>
-            <span className="emcee-visual-index">PORTFOLIO / 04</span>
             <span className="emcee-vertical-note">BINTULU · SARAWAK · MALAYSIA</span>
           </div>
           <div className="emcee-hero-bottom"><span>PROFESSIONAL · APPROACHABLE · ENGAGING</span><span>SCROLL TO EXPLORE ↓</span></div>
