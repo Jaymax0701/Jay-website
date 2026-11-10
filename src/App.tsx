@@ -393,7 +393,7 @@ export default function App() {
                       aria-pressed={flippedPillars.includes(pillar.number)}
                       aria-label={`Read more about ${pillar.title}`}
                       onClick={() => setFlippedPillars((current) => current.includes(pillar.number) ? current.filter((number) => number !== pillar.number) : [...current, pillar.number])}
-                    >Read more <span aria-hidden="true">↗︎</span></button>
+                    >Read more <span aria-hidden="true">↗</span></button>
                   </div>
                   <div className="pillar-face pillar-back">
                     <div className="pillar-top"><span>{pillar.number} / 03</span><span>DETAILS</span></div>
