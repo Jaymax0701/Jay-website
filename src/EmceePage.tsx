@@ -28,7 +28,8 @@ const packages = [
     number: "04",
     name: "Corporate Event",
     detail: "Dinner, launch & formal events · 4–5 hours",
-    price: "RM700",
+    originalPrice: "RM700",
+    price: "RM650",
   },
   {
     number: "05",
