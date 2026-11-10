@@ -323,3 +323,44 @@
 }
 
 @media (prefers-reduced-motion: reduce) { .emcee-floating-book, .emcee-floating-book::after { animation: none; } .emcee-floating-book::after { display: none; } }
+
+/* Burgundy accent: adds a warmer live-event character while preserving champagne gold as the primary premium tone. */
+.emcee-page {
+  --emcee-burgundy: #7A263A;
+  --emcee-burgundy-bright: #A33B52;
+  --emcee-burgundy-wash: rgba(122,38,58,.16);
+  --emcee-burgundy-line: rgba(163,59,82,.48);
+}
+.emcee-nav a:hover,
+.emcee-text-link span,
+.emcee-portrait-overlay span,
+.emcee-experience-category,
+.emcee-package-detail,
+.emcee-service-list > div > span:first-child {
+  color: var(--emcee-burgundy-bright);
+}
+.emcee-portrait-dots button.is-active {
+  background: var(--emcee-burgundy-bright);
+}
+.emcee-portrait-arrows button:hover {
+  color: #fff;
+  background: var(--emcee-burgundy);
+}
+.emcee-hero-visual::before {
+  border-color: var(--emcee-burgundy);
+}
+.emcee-experience-card:hover {
+  border-color: var(--emcee-burgundy-line);
+}
+.emcee-experience-featured {
+  border-color: var(--emcee-burgundy-line);
+  background: linear-gradient(135deg, rgba(122,38,58,.3), #171614 72%);
+}
+.emcee-package-featured {
+  border-color: var(--emcee-burgundy-line);
+  background: linear-gradient(150deg, rgba(122,38,58,.28), #171614 72%);
+}
+.emcee-special-rate {
+  color: #D98A9B;
+  border-color: var(--emcee-burgundy-line);
+}
