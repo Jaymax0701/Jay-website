@@ -346,7 +346,7 @@ export default function EmceePage() {
         </footer>
       </main>
       <a className="emcee-floating-book" href={generalEnquiry} target="_blank" rel="noopener noreferrer" aria-label="Book Jay as an emcee on WhatsApp">
-        <span>BOOK JAY</span><span className="emcee-floating-book-arrow" aria-hidden="true">↗︎</span>
+        <span>CHECK AVAILABILITY</span><span className="emcee-floating-book-arrow" aria-hidden="true">↗︎</span>
       </a>
     </>
   );
