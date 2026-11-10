@@ -21,6 +21,18 @@ const packages = [
     price: "RM700",
     featured: true,
   },
+  {
+    number: "04",
+    name: "Corporate Event",
+    detail: "Dinner, launch & formal events · 4–5 hours",
+    price: "RM700",
+  },
+  {
+    number: "05",
+    name: "Concert & Entertainment",
+    detail: "Concerts, showcases & entertainment events",
+    price: "From RM700",
+  },
 ];
 
 const whatsappLink = (message: string) =>
@@ -153,7 +165,7 @@ export default function EmceePage() {
 
       <section className="emcee-pricing" id="packages">
         <div className="emcee-section-heading">
-          <p className="emcee-eyebrow">WEDDING HOSTING PACKAGES</p>
+          <p className="emcee-eyebrow">WEDDING & EVENT HOSTING RATES</p>
           <h2>Packages & <em>pricing.</em></h2>
         </div>
 
@@ -179,7 +191,7 @@ export default function EmceePage() {
           ))}
         </div>
         <p className="emcee-pricing-note">
-          Rates are in Malaysian Ringgit (RM). Travel or accommodation for outstation events, if required, will be quoted separately.
+          Rates are in Malaysian Ringgit (RM). Concert and entertainment rates are starting rates and may vary with event duration and scope. Travel or accommodation for outstation events, if required, will be quoted separately.
         </p>
       </section>
 
