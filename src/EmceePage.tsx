@@ -58,6 +58,16 @@ const generalEnquiry = whatsappLink(
 
 export default function EmceePage() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activePortfolioImage, setActivePortfolioImage] = useState(0);
+
+  const portfolioImages = [
+    { src: "/images/church-emcee.jpeg", alt: "Jay hosting a church event", label: "Church & Community Hosting" },
+    { src: "/images/ryc-emcee.jpeg", alt: "Jay emceeing a youth event", label: "Youth Event Hosting" },
+    { src: "/images/FOY-emcee.jpg", alt: "Jay emceeing the Festival of Youth (FOY)", label: "Festival of Youth (FOY)" },
+  ];
+
+  const showPreviousPortfolioImage = () => setActivePortfolioImage((current) => (current + portfolioImages.length - 1) % portfolioImages.length);
+  const showNextPortfolioImage = () => setActivePortfolioImage((current) => (current + 1) % portfolioImages.length);
 
   useEffect(() => {
     const previousTitle = document.title;
@@ -161,7 +171,27 @@ export default function EmceePage() {
               </article>
             ))}
           </div>
-          <p className="emcee-experience-note">Experience highlights are presented by event type. Additional event photographs and video highlights can be added as approved media becomes available.</p>
+          <div className="emcee-gallery" aria-label="Emcee portfolio photographs">
+            <div className="emcee-gallery-heading">
+              <div><p className="emcee-eyebrow">IN THE MOMENT</p><h3>On <em>stage.</em></h3></div>
+              <div className="emcee-gallery-controls">
+                <button type="button" onClick={showPreviousPortfolioImage} aria-label="Previous portfolio photo">←</button>
+                <span>{String(activePortfolioImage + 1).padStart(2, "0")} <i>/ 03</i></span>
+                <button type="button" onClick={showNextPortfolioImage} aria-label="Next portfolio photo">→</button>
+              </div>
+            </div>
+            <div className="emcee-gallery-frame" onTouchStart={(event) => { event.currentTarget.dataset.touchStart = String(event.touches[0].clientX); }} onTouchEnd={(event) => { const start = Number(event.currentTarget.dataset.touchStart); const delta = event.changedTouches[0].clientX - start; if (Math.abs(delta) > 45) (delta > 0 ? showPreviousPortfolioImage : showNextPortfolioImage)(); }}>
+              {portfolioImages.map((photo, index) => (
+                <figure className={`emcee-gallery-slide${index === activePortfolioImage ? " is-active" : ""}`} aria-hidden={index !== activePortfolioImage} key={photo.src}>
+                  <img src={photo.src} alt={photo.alt} loading="lazy" />
+                  <figcaption><span>0{index + 1} / 03</span><strong>{photo.label}</strong></figcaption>
+                </figure>
+              ))}
+            </div>
+            <div className="emcee-gallery-dots" aria-label="Choose portfolio photo">
+              {portfolioImages.map((photo, index) => <button key={photo.src} type="button" className={index === activePortfolioImage ? "is-active" : ""} onClick={() => setActivePortfolioImage(index)} aria-label={`Show photo ${index + 1}: ${photo.label}`} aria-pressed={index === activePortfolioImage} />)}
+            </div>
+          </div>
         </section>
 
         <section className="emcee-services">
